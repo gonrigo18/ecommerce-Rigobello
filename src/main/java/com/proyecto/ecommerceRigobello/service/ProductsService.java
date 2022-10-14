@@ -1,6 +1,5 @@
 package com.proyecto.ecommerceRigobello.service;
 
-import com.proyecto.ecommerceRigobello.model.ClientModel;
 import com.proyecto.ecommerceRigobello.model.ProductsModel;
 import com.proyecto.ecommerceRigobello.repository.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;

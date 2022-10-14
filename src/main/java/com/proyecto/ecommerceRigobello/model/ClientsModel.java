@@ -2,19 +2,19 @@ package com.proyecto.ecommerceRigobello.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.Period;
-import java.util.Date;
-
+import java.util.List;
 
 @Data
 @Entity
-@Table(name = "client")
-public class ClientModel {
+@Table(name = "clients")
+public class ClientsModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "dni", unique = true)
+    private String dni;
 
     @Column(name = "name")
     private String name;
@@ -25,4 +25,6 @@ public class ClientModel {
     @Column (name ="birth_date")
     private String birth_date;
 
+    @OneToMany (mappedBy = "client", cascade = CascadeType.ALL)
+    private List<SaleModel> sale;
 }

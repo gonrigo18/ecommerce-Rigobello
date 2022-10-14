@@ -1,7 +1,6 @@
 package com.proyecto.ecommerceRigobello;
 
-import com.proyecto.ecommerceRigobello.model.ClientModel;
-import com.proyecto.ecommerceRigobello.repository.ClientRepository;
+import com.proyecto.ecommerceRigobello.repository.ClientsRepository;
 import com.proyecto.ecommerceRigobello.repository.Sale_detailRepository;
 import com.proyecto.ecommerceRigobello.repository.ProductsRepository;
 import com.proyecto.ecommerceRigobello.repository.SaleRepository;
@@ -10,13 +9,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Optional;
-
 @SpringBootApplication
 public class EcommerceApplication implements CommandLineRunner {
 
 	@Autowired
-	ClientRepository clientRepository;
+	ClientsRepository clientRepository;
 	@Autowired
 	Sale_detailRepository detalle_ventaRepository;
 	@Autowired

@@ -21,7 +21,7 @@ public class SaleModel {
 
     @ManyToOne
     @JoinColumn(name = "client_id")
-    private ClientModel client;
+    private ClientsModel client;
 
     @OneToMany (mappedBy = "sale", cascade = CascadeType.ALL)
     private List<Sale_detailModel> sale_detail;
