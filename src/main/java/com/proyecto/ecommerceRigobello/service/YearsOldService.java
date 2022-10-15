@@ -26,9 +26,9 @@ public class YearsOldService {
         if(clientBD.isPresent()){
             ClientModel client = clientBD.get();
             YearsModel client2 = new YearsModel();
-            var name = client.getName();
-            var lastname = client.getLastname();
-            var born = client.getBirth_date();
+            String name = client.getName();
+            String lastname = client.getLastname();
+            LocalDate born = client.getBirth_date();
             LocalDate now = LocalDate.now();
             long age= ChronoUnit.YEARS.between(born, now);
             client2.saveName(name);
