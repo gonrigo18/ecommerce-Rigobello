@@ -2,8 +2,6 @@ package com.proyecto.ecommerceRigobello.controller;
 
 
 import com.proyecto.ecommerceRigobello.model.ClientModel;
-import com.proyecto.ecommerceRigobello.model.ClientsModel;
-import com.proyecto.ecommerceRigobello.model.YearsModel;
 import com.proyecto.ecommerceRigobello.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

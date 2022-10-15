@@ -21,28 +21,6 @@ public class YearsOldService {
 
     public List<ClientModel> findAll(){ return this.yearsOldRepository.findAll();}
 
-    /*public Optional<ClientModel> findById(Long id){
-        Optional<ClientModel> clientBD= this.yearsOldRepository.findById(id);
-        if(clientBD.isPresent()){
-            ClientModel client = clientBD.get();
-            client.setName(client.getName());
-            client.setLastname(client.getLastname());
-            client.setBirth_date(client.getBirth_date());
-            var name = client.getName();
-            var lastname = client.getLastname();
-            var burn = client.getBirth_date();
-            LocalDate now = LocalDate.now();
-            long edad= ChronoUnit.YEARS.between(burn, now);
-            System.out.println("name: " + name);
-            System.out.println("Lastname: " + lastname);
-            System.out.println("Edad: " + edad);
-            client.saveYears(edad);
-            return Optional.of(client);
-        }else{
-            return null;
-        }
-    }*/
-
     public Optional<YearsModel> calculateYears(Long id){
         Optional<ClientModel> clientBD= this.yearsOldRepository.findById(id);
         if(clientBD.isPresent()){
@@ -50,12 +28,12 @@ public class YearsOldService {
             YearsModel client2 = new YearsModel();
             var name = client.getName();
             var lastname = client.getLastname();
-            var burn = client.getBirth_date();
+            var born = client.getBirth_date();
             LocalDate now = LocalDate.now();
-            long edad= ChronoUnit.YEARS.between(burn, now);
+            long age= ChronoUnit.YEARS.between(born, now);
             client2.saveName(name);
             client2.saveLastName(lastname);
-            client2.saveYears(edad);
+            client2.saveYears(age);
             return Optional.of(client2);
         }else{
             return null;
