@@ -23,6 +23,6 @@ public class ClientModel {
     private String lastname;
 
     @Column (name ="birth_date")
-    private String birth_date;
+    private LocalDate birth_date;
 
 }
