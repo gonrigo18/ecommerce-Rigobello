@@ -24,6 +24,19 @@ public class ClientService {
 
     public List<ClientModel> findAll(){ return this.clientRepository.findAll();}
 
+    public Optional<ClientModel> findById(Long id){
+        Optional<ClientModel> clientBD= this.clientRepository.findById(id);
+        if(clientBD.isPresent()){
+            ClientModel client = clientBD.get();
+            client.setName(client.getName());
+            client.setLastname(client.getLastname());
+            client.setBirth_date(client.getBirth_date());
+            return this.clientRepository.findById(id);
+        }else{
+            return null;
+        }
+    }
+
     public ClientModel update(ClientModel client, Long id){
         Optional<ClientModel> clientBD= this.clientRepository.findById(id);
         if (clientBD.isPresent()){

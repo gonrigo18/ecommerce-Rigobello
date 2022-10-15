@@ -25,7 +25,7 @@ public class YearsOldController {
 
     @GetMapping("/{id}") // metodo get por id
     public ResponseEntity<Optional<YearsModel>> findById(@PathVariable long id){
-        return new ResponseEntity<>(this.yearsOldService.findById(id), HttpStatus.OK);
+        return new ResponseEntity<>(this.yearsOldService.calculateYears(id), HttpStatus.OK);
     }
 
 

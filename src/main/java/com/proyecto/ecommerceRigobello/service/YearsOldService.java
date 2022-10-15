@@ -43,7 +43,7 @@ public class YearsOldService {
         }
     }*/
 
-    public Optional<YearsModel> findById(Long id){
+    public Optional<YearsModel> calculateYears(Long id){
         Optional<ClientModel> clientBD= this.yearsOldRepository.findById(id);
         if(clientBD.isPresent()){
             ClientModel client = clientBD.get();
