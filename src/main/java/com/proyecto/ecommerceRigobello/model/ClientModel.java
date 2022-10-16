@@ -3,8 +3,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.Period;
-import java.util.Date;
+
 
 
 @Data
@@ -17,6 +16,7 @@ public class ClientModel {
     private Long id;
 
     @Column(name = "name")
+
     private String name;
 
     @Column(name = "lastname")

@@ -2,6 +2,7 @@ package com.proyecto.ecommerceRigobello.controller;
 
 
 
+import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import com.proyecto.ecommerceRigobello.model.ClientModel;
 import com.proyecto.ecommerceRigobello.model.YearsModel;
 import com.proyecto.ecommerceRigobello.service.ClientService;
@@ -24,7 +25,7 @@ public class YearsOldController {
 
 
     @GetMapping("/{id}") // metodo get por id
-    public ResponseEntity<Optional<YearsModel>> findById(@PathVariable long id){
+    public ResponseEntity<Optional<YearsModel>> findById(@PathVariable long id) throws ResourceNotFoundException {
         return new ResponseEntity<>(this.yearsOldService.calculateYears(id), HttpStatus.OK);
     }
 

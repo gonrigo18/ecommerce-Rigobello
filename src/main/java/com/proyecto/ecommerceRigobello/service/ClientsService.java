@@ -1,6 +1,7 @@
 package com.proyecto.ecommerceRigobello.service;
 
 
+import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import com.proyecto.ecommerceRigobello.model.ClientsModel;
 import com.proyecto.ecommerceRigobello.repository.ClientsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class ClientsService {
     return this.clientRepository.findAll();
    }
 
-   public ClientsModel update(ClientsModel client, Long id){
+   public ClientsModel update(ClientsModel client, Long id) throws ResourceNotFoundException {
        Optional<ClientsModel> clientBD= this.clientRepository.findById(id);
        if (clientBD.isPresent()){
            ClientsModel c = clientBD.get();
@@ -31,7 +32,7 @@ public class ClientsService {
            c.setName(client.getName());
            return this.clientRepository.save(c);
        }else{
-           return null;
+           throw new ResourceNotFoundException("El cliente no existe");
        }
    }
 

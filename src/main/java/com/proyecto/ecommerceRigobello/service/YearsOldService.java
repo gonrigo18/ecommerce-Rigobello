@@ -1,5 +1,6 @@
 package com.proyecto.ecommerceRigobello.service;
 
+import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import com.proyecto.ecommerceRigobello.model.ClientModel;
 import com.proyecto.ecommerceRigobello.model.YearsModel;
 import com.proyecto.ecommerceRigobello.repository.YearsOldRepository;
@@ -21,7 +22,7 @@ public class YearsOldService {
 
     public List<ClientModel> findAll(){ return this.yearsOldRepository.findAll();}
 
-    public Optional<YearsModel> calculateYears(Long id){
+    public Optional<YearsModel> calculateYears(Long id) throws ResourceNotFoundException {
         Optional<ClientModel> clientBD= this.yearsOldRepository.findById(id);
         if(clientBD.isPresent()){
             ClientModel client = clientBD.get();
@@ -36,7 +37,7 @@ public class YearsOldService {
             client2.saveYears(age);
             return Optional.of(client2);
         }else{
-            return null;
+            throw new ResourceNotFoundException("El cliente no existe");
         }
     }
 

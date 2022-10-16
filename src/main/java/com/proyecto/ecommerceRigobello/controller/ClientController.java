@@ -1,6 +1,7 @@
 package com.proyecto.ecommerceRigobello.controller;
 
 
+import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import com.proyecto.ecommerceRigobello.model.ClientModel;
 import com.proyecto.ecommerceRigobello.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class ClientController {
     private ClientService clientService;
 
     @PostMapping("/") // metodo post
-    public ResponseEntity<ClientModel> create (@RequestBody ClientModel client){
+    public ResponseEntity<ClientModel> create ( @RequestBody ClientModel client){
         return new ResponseEntity<>(this.clientService.create(client), HttpStatus.OK);
     }
 
@@ -28,12 +29,12 @@ public class ClientController {
         return new ResponseEntity<>(this.clientService.findAll(),HttpStatus.OK);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<ClientModel>> findById(@PathVariable long id){
+    public ResponseEntity<Optional<ClientModel>> findById(@PathVariable long id) throws ResourceNotFoundException {
         return new ResponseEntity<>(this.clientService.findById(id), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ClientModel> update (@RequestBody ClientModel clientUpdate, @PathVariable Long id){
+    public ResponseEntity<ClientModel> update (@RequestBody ClientModel clientUpdate, @PathVariable Long id) throws ResourceNotFoundException {
         return new ResponseEntity<>(this.clientService.update(clientUpdate,id), HttpStatus.OK);
     }
 
