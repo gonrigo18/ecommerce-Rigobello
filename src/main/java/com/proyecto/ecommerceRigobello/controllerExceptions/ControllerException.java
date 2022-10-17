@@ -17,7 +17,7 @@ public class ControllerException {
 
     @ExceptionHandler ({NullFieldException.class})
      public ResponseEntity<String> nullFieldException (Exception e){
-         return new ResponseEntity<>("El campo no puede ser null o estar vacio",  HttpStatus.INTERNAL_SERVER_ERROR);
+         return new ResponseEntity<>(e.getMessage(),  HttpStatus.INTERNAL_SERVER_ERROR);
      }
 
 

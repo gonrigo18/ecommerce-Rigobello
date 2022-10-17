@@ -4,12 +4,13 @@ package com.proyecto.ecommerceRigobello.controller;
 import com.proyecto.ecommerceRigobello.controllerExceptions.NullFieldException;
 import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import com.proyecto.ecommerceRigobello.model.ClientsModel;
+import com.proyecto.ecommerceRigobello.dto.ClientValidationDTO;
 import com.proyecto.ecommerceRigobello.service.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.proyecto.ecommerceRigobello.validations.ClientsValidations;
+import com.proyecto.ecommerceRigobello.validations.ClientValidations;
 import java.util.List;
 
 
@@ -22,9 +23,9 @@ public class ClientsController {
 
     @PostMapping("/") // metodo post
     public ResponseEntity<ClientsModel> create (@RequestBody ClientsModel client) throws NullFieldException {
-        String err="";
-        if (ClientsValidations.checkFields(client,err)){
-            throw new NullFieldException(err);
+        ClientValidationDTO flag = ClientValidations.checkFields(client);
+        if (flag.hasError){
+            throw new NullFieldException(flag.Message);
         }
         return new ResponseEntity<>(this.clientService.create(client), HttpStatus.OK);
     }

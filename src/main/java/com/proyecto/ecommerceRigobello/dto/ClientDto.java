@@ -1,10 +1,9 @@
-package com.proyecto.ecommerceRigobello.model;
+package com.proyecto.ecommerceRigobello.dto;
 
 import lombok.Data;
-import javax.persistence.*;
 
 @Data
-public class YearsModel {
+public class ClientDto {
 
     private String name;
 

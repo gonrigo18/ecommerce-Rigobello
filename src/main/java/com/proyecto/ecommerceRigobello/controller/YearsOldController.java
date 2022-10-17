@@ -3,17 +3,13 @@ package com.proyecto.ecommerceRigobello.controller;
 
 
 import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
-import com.proyecto.ecommerceRigobello.model.ClientModel;
-import com.proyecto.ecommerceRigobello.model.YearsModel;
-import com.proyecto.ecommerceRigobello.service.ClientService;
+import com.proyecto.ecommerceRigobello.dto.ClientDto;
 import com.proyecto.ecommerceRigobello.service.YearsOldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 @RequestMapping (path = "api/years")
@@ -25,7 +21,7 @@ public class YearsOldController {
 
 
     @GetMapping("/{id}") // metodo get por id
-    public ResponseEntity<Optional<YearsModel>> findById(@PathVariable long id) throws ResourceNotFoundException {
+    public ResponseEntity<Optional<ClientDto>> findById(@PathVariable long id) throws ResourceNotFoundException {
         return new ResponseEntity<>(this.yearsOldService.calculateYears(id), HttpStatus.OK);
     }
 

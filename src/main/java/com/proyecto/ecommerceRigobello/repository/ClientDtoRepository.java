@@ -5,10 +5,8 @@ import com.proyecto.ecommerceRigobello.model.ClientModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface YearsOldRepository extends JpaRepository <ClientModel, Long>{
+public interface ClientDtoRepository extends JpaRepository <ClientModel, Long>{
 
 
 }

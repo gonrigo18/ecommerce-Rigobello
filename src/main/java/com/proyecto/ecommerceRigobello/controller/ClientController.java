@@ -33,6 +33,8 @@ public class ClientController {
         return new ResponseEntity<>(this.clientService.findById(id), HttpStatus.OK);
     }
 
+
+
     @PutMapping("/{id}")
     public ResponseEntity<ClientModel> update (@RequestBody ClientModel clientUpdate, @PathVariable Long id) throws ResourceNotFoundException {
         return new ResponseEntity<>(this.clientService.update(clientUpdate,id), HttpStatus.OK);
