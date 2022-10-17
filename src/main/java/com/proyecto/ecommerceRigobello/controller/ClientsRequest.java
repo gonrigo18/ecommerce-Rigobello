@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RequestMapping (path = "api/years")
 @RestController
-public class YearsOldController {
+public class ClientsRequest {
 
     @Autowired
     private YearsOldService yearsOldService;

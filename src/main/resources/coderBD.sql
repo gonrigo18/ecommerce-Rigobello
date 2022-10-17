@@ -72,3 +72,5 @@ select * from client;
 select * from sale;
 select * from products;
 select * from sale_detail;
+
+DELETE FROM client WHERE id=9;

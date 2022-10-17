@@ -2,6 +2,7 @@ package com.proyecto.ecommerceRigobello.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -23,7 +24,7 @@ public class ClientsModel {
     private String lastname;
 
     @Column (name ="birth_date")
-    private String birth_date;
+    private LocalDate birth_date;
 
     @OneToMany (mappedBy = "client", cascade = CascadeType.ALL)
     private List<SaleModel> sale;

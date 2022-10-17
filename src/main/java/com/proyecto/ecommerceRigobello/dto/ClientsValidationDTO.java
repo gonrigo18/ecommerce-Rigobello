@@ -1,6 +1,6 @@
 package com.proyecto.ecommerceRigobello.dto;
 
-public class ClientValidationDTO {
+public class ClientsValidationDTO {
     public String Message;
     public Boolean hasError;
 }

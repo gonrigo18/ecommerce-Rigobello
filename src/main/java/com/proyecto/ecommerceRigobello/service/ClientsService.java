@@ -14,30 +14,43 @@ import java.util.Optional;
 public class ClientsService {
 
    @Autowired
-   ClientsRepository clientRepository;
+   ClientsRepository clientsRepository;
 
    public ClientsModel create(ClientsModel newClient){
-       return this.clientRepository.save(newClient);
+       return this.clientsRepository.save(newClient);
    }
 
    public List<ClientsModel> findAll(){
-    return this.clientRepository.findAll();
+    return this.clientsRepository.findAll();
    }
 
+    public Optional<ClientsModel> findById(Long id) throws ResourceNotFoundException {
+        Optional<ClientsModel> clientBD= this.clientsRepository.findById(id);
+        if(clientBD.isPresent()){
+            ClientsModel client = clientBD.get();
+            client.setName(client.getName());
+            client.setLastname(client.getLastname());
+            client.setBirth_date(client.getBirth_date());
+            return this.clientsRepository.findById(id);
+        }else{
+            throw new ResourceNotFoundException("El cliente no existe");
+        }
+    }
    public ClientsModel update(ClientsModel client, Long id) throws ResourceNotFoundException {
-       Optional<ClientsModel> clientBD= this.clientRepository.findById(id);
+       Optional<ClientsModel> clientBD= this.clientsRepository.findById(id);
        if (clientBD.isPresent()){
            ClientsModel c = clientBD.get();
            c.setLastname(client.getLastname());
            c.setName(client.getName());
-           return this.clientRepository.save(c);
+           c.setBirth_date(client.getBirth_date());
+           return this.clientsRepository.save(c);
        }else{
            throw new ResourceNotFoundException("El cliente no existe");
        }
    }
 
    public void delete (Long id){
-       this.clientRepository.deleteById(id);
+       this.clientsRepository.deleteById(id);
    }
 
 

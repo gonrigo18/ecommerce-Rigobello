@@ -1,9 +1,10 @@
 package com.proyecto.ecommerceRigobello.service;
 
 import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
-import com.proyecto.ecommerceRigobello.model.ClientModel;
 import com.proyecto.ecommerceRigobello.dto.ClientDto;
+import com.proyecto.ecommerceRigobello.model.ClientsModel;
 import com.proyecto.ecommerceRigobello.repository.ClientDtoRepository;
+import com.proyecto.ecommerceRigobello.repository.ClientsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
@@ -15,15 +16,17 @@ import java.util.Optional;
 public class YearsOldService {
 
     @Autowired
-    ClientDtoRepository yearsOldRepository;
+    ClientDtoRepository clientDtoRepository;
+    @Autowired
+    ClientsRepository clientsRepository;
 
 
-    public List<ClientModel> findAll(){ return this.yearsOldRepository.findAll();}
+    public List<ClientsModel> findAll(){ return this.clientsRepository.findAll();}
 
     public Optional<ClientDto> calculateYears(Long id) throws ResourceNotFoundException {
-        Optional<ClientModel> clientBD= this.yearsOldRepository.findById(id);
+        Optional<ClientsModel> clientBD= this.clientsRepository.findById(id);
         if(clientBD.isPresent()){
-            ClientModel client = clientBD.get();
+            ClientsModel client = clientBD.get();
             ClientDto client2 = new ClientDto();
             String name = client.getName();
             String lastname = client.getLastname();

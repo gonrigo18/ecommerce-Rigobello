@@ -2,12 +2,12 @@ package com.proyecto.ecommerceRigobello.validations;
 
 
 import com.proyecto.ecommerceRigobello.model.ClientsModel;
-import com.proyecto.ecommerceRigobello.dto.ClientValidationDTO;
+import com.proyecto.ecommerceRigobello.dto.ClientsValidationDTO;
 
-public class ClientValidations {
+public class ClientsValidations {
 
-    public static ClientValidationDTO checkFields(ClientsModel clientModel){
-        ClientValidationDTO response = new ClientValidationDTO();
+    public static ClientsValidationDTO checkFields(ClientsModel clientModel){
+        ClientsValidationDTO response = new ClientsValidationDTO();
         if ((clientModel.getDni().isBlank()) || (clientModel.getDni() == null) || (clientModel.getDni().isEmpty())){
             response.Message = "Campo Dni vacío, por favor completar";
             response.hasError = true;
@@ -23,7 +23,7 @@ public class ClientValidations {
             response.hasError = true;
             return response;
         }
-        if ((clientModel.getBirth_date().isBlank()) || (clientModel.getBirth_date() == null) || (clientModel.getBirth_date().isEmpty())){
+        if (clientModel.getBirth_date() == null) {
             response.Message = "Campo Birth date vacío, por favor completar";
             response.hasError = true;
             return response;
