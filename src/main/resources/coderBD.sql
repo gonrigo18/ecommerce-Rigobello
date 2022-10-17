@@ -25,9 +25,9 @@ use coder;
 
 create table clients (
 id int primary key auto_increment,
-dni varchar (11) not null unique,
 name varchar(100) default null,
 lastname varchar(45) default null,
+dni varchar (11) not null unique,
 birth_date date
 );
 
@@ -73,4 +73,4 @@ select * from sale;
 select * from products;
 select * from sale_detail;
 
-DELETE FROM client WHERE id=9;
+DELETE FROM clients WHERE id=11;
