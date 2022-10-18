@@ -23,7 +23,7 @@ public class YearsOldService {
 
     public List<ClientsModel> findAll(){ return this.clientsRepository.findAll();}
 
-    public Optional<ClientDto> calculateYears(Long id) throws ResourceNotFoundException {
+    public ClientDto calculateYears(Long id) throws ResourceNotFoundException {
         Optional<ClientsModel> clientBD= this.clientsRepository.findById(id);
         if(clientBD.isPresent()){
             ClientsModel client = clientBD.get();
@@ -36,7 +36,7 @@ public class YearsOldService {
             client2.saveName(name);
             client2.saveLastName(lastname);
             client2.saveYears(age);
-            return Optional.of(client2);
+            return client2;
         }else{
             throw new ResourceNotFoundException("El cliente no existe");
         }

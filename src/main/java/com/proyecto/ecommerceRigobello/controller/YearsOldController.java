@@ -14,14 +14,14 @@ import java.util.Optional;
 
 @RequestMapping (path = "api/years")
 @RestController
-public class ClientsRequest {
+public class YearsOldController {
 
     @Autowired
     private YearsOldService yearsOldService;
 
 
     @GetMapping("/{id}") // metodo get por id
-    public ResponseEntity<Optional<ClientDto>> findById(@PathVariable long id) throws ResourceNotFoundException {
+    public ResponseEntity<?> findById(@PathVariable long id) throws ResourceNotFoundException {
         return new ResponseEntity<>(this.yearsOldService.calculateYears(id), HttpStatus.OK);
     }
 
