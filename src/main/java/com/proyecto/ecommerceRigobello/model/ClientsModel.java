@@ -14,14 +14,14 @@ public class ClientsModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "dni", unique = true)
-    private String dni;
-
     @Column(name = "name")
     private String name;
 
     @Column(name = "lastname")
     private String lastname;
+
+    @Column(name = "dni", unique = true)
+    private String dni;
 
     @Column (name ="birth_date")
     private LocalDate birth_date;

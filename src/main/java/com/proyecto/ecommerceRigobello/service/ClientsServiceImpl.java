@@ -3,7 +3,10 @@ package com.proyecto.ecommerceRigobello.service;
 
 import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import com.proyecto.ecommerceRigobello.model.ClientsModel;
+import com.proyecto.ecommerceRigobello.model.mapper.ClientsMapper;
+import com.proyecto.ecommerceRigobello.model.response.ClientsResponse;
 import com.proyecto.ecommerceRigobello.repository.ClientsRepository;
+import com.proyecto.ecommerceRigobello.service.abstraction.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ClientsService {
+public class ClientsServiceImpl implements ClientsService {
 
    @Autowired
    ClientsRepository clientsRepository;
@@ -24,17 +27,10 @@ public class ClientsService {
     return this.clientsRepository.findAll();
    }
 
-    public Optional<ClientsModel> findById(Long id) throws ResourceNotFoundException {
-        Optional<ClientsModel> clientBD= this.clientsRepository.findById(id);
-        if(clientBD.isPresent()){
-            ClientsModel client = clientBD.get();
-            client.setName(client.getName());
-            client.setLastname(client.getLastname());
-            client.setBirth_date(client.getBirth_date());
-            return this.clientsRepository.findById(id);
-        }else{
-            throw new ResourceNotFoundException("El cliente no existe");
-        }
+
+    @Override
+    public ClientsResponse findById(Long id) {
+        return ClientsMapper.clientsToResponse(clientsRepository.findById(id).orElseThrow());
     }
    public ClientsModel update(ClientsModel client, Long id) throws ResourceNotFoundException {
        Optional<ClientsModel> clientBD= this.clientsRepository.findById(id);
