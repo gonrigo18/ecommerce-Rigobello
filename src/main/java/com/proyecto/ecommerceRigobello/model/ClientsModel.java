@@ -1,8 +1,10 @@
 package com.proyecto.ecommerceRigobello.model;
+import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Data
@@ -28,5 +30,6 @@ public class ClientsModel {
 
     @OneToMany (mappedBy = "client", cascade = CascadeType.ALL)
     private List<SaleModel> sale;
+
 
 }

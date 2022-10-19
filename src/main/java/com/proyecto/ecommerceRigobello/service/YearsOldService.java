@@ -35,7 +35,7 @@ public class YearsOldService {
             long age= ChronoUnit.YEARS.between(born, now);
             client2.saveName(name);
             client2.saveLastName(lastname);
-            client2.saveYears(age);
+            client2.saveYears((int) age);
             return client2;
         }else{
             throw new ResourceNotFoundException("El cliente no existe");

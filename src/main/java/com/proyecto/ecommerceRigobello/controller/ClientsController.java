@@ -37,7 +37,7 @@ public class ClientsController {
     }
 
     @GetMapping("/{id}")
-    public ClientsResponse findById(@PathVariable long id) {
+    public ClientsResponse findById(@PathVariable long id) throws ResourceNotFoundException {
         return clientsService.findById(id);
     }
 

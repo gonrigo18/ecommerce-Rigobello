@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClientsRepository extends JpaRepository <ClientsModel, Long> {
     ClientsModel getById(Long id);
+
 }

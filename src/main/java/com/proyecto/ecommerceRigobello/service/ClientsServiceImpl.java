@@ -10,6 +10,7 @@ import com.proyecto.ecommerceRigobello.service.abstraction.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -29,10 +30,16 @@ public class ClientsServiceImpl implements ClientsService {
 
 
     @Override
-    public ClientsResponse findById(Long id) {
-        return ClientsMapper.clientsToResponse(clientsRepository.findById(id).orElseThrow());
+    public ClientsResponse findById(Long id) throws ResourceNotFoundException{
+       Optional<ClientsModel> clientBD = this.clientsRepository.findById(id);
+       if (clientBD.isPresent()){
+           return ClientsMapper.clientsToResponse(clientsRepository.findById(id).orElseThrow());
+       }else{
+           throw new ResourceNotFoundException("El cliente no existe");
+       }
     }
-   public ClientsModel update(ClientsModel client, Long id) throws ResourceNotFoundException {
+
+    public ClientsModel update(ClientsModel client, Long id) throws ResourceNotFoundException {
        Optional<ClientsModel> clientBD= this.clientsRepository.findById(id);
        if (clientBD.isPresent()){
            ClientsModel c = clientBD.get();
