@@ -1,7 +1,7 @@
 package com.proyecto.ecommerceRigobello.controllerExceptions;
 
 
-import com.proyecto.ecommerceRigobello.model.ClientsModel;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

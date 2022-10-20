@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -19,4 +20,7 @@ public class ClientsResponse {
     private String lastname;
     private String dni;
     private LocalDate birth_date;
+    private Integer years;
+
+
 }
