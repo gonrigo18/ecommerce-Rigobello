@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 @Builder
-public class ClientsResponse {
+public class ClientsYearsResponse {
     private Long id;
     private String name;
     private String lastname;

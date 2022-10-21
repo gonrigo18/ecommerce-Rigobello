@@ -1,9 +1,9 @@
 package com.proyecto.ecommerceRigobello.service.abstraction;
 
 import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
-import com.proyecto.ecommerceRigobello.model.response.ClientsResponse;
+import com.proyecto.ecommerceRigobello.model.response.ClientsYearsResponse;
 
 public interface ClientsService {
-      ClientsResponse findById(Long id) throws ResourceNotFoundException;
+      ClientsYearsResponse findById(Long id) throws ResourceNotFoundException;
 
 }
