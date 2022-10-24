@@ -1,4 +1,4 @@
-package com.proyecto.ecommerceRigobello.model;
+package com.proyecto.ecommerceRigobello.model.entities;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -26,7 +26,8 @@ public class ClientsModel {
     @Column (name ="birth_date")
     private LocalDate birth_date;
 
-    @OneToMany (mappedBy = "client", cascade = CascadeType.ALL)
-    private List<SaleModel> sale;
+    @OneToMany (mappedBy = "client")
+    private List<SaleModel> sales;
+
 
 }

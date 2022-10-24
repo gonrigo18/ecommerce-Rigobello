@@ -3,8 +3,9 @@ package com.proyecto.ecommerceRigobello.controller;
 
 import com.proyecto.ecommerceRigobello.controllerExceptions.NullFieldException;
 import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
-import com.proyecto.ecommerceRigobello.model.ClientsModel;
-import com.proyecto.ecommerceRigobello.dto.ClientsValidationDTO;
+import com.proyecto.ecommerceRigobello.model.entities.ClientsModel;
+import com.proyecto.ecommerceRigobello.model.dto.ClientsValidationDTO;
+import com.proyecto.ecommerceRigobello.model.response.ClientsResponse;
 import com.proyecto.ecommerceRigobello.model.response.ClientsYearsResponse;
 import com.proyecto.ecommerceRigobello.service.ClientsServiceImpl;
 import com.proyecto.ecommerceRigobello.validations.ClientsValidations;
@@ -37,9 +38,10 @@ public class ClientsController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClientsYearsResponse> findById(@PathVariable long id) throws ResourceNotFoundException {
+    public ResponseEntity<ClientsResponse> findById(@PathVariable long id) throws ResourceNotFoundException {
         return new ResponseEntity<>(this.clientsService.findById(id),HttpStatus.OK);
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<ClientsModel> update (@RequestBody ClientsModel clientsUpdate, @PathVariable Long id) throws ResourceNotFoundException {

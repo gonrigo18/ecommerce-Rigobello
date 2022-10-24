@@ -1,8 +1,8 @@
 package com.proyecto.ecommerceRigobello.validations;
 
 
-import com.proyecto.ecommerceRigobello.model.ClientsModel;
-import com.proyecto.ecommerceRigobello.dto.ClientsValidationDTO;
+import com.proyecto.ecommerceRigobello.model.entities.ClientsModel;
+import com.proyecto.ecommerceRigobello.model.dto.ClientsValidationDTO;
 
 public class ClientsValidations {
 

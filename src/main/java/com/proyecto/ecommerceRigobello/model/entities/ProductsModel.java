@@ -1,4 +1,4 @@
-package com.proyecto.ecommerceRigobello.model;
+package com.proyecto.ecommerceRigobello.model.entities;
 import lombok.Data;
 
 import javax.persistence.*;

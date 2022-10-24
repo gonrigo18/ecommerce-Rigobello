@@ -12,7 +12,11 @@ SELECT * FROM alumnos WHERE dni>15000000;
 SELECT nombre FROM alumnos WHERE nombre='Gonzalo';
 SELECT * FROM alumnos WHERE nombre='Gonzalo';
 ALTER TABLE alumnos ADD column fecha_nacimiento date;
-ALTER TABLE alumnos DROP column fecha_nacimiento;
+ALTER TABLE sale_detail DROP column detail_id ;
+
+delete from sale
+where id=2;
+
 CREATE TABLE productos (id INT , descripcion VARCHAR(45) NOT NULL);
 ALTER TABLE productos ADD column id_rubro INT;
 
@@ -35,9 +39,10 @@ create table sale (
 id int primary key auto_increment,
 high_date date,
 total double,
-client_id int,
+client_id int ,
 constraint fk_client_id foreign key (client_id) references clients(id)
 );
+
 
 create table products (
 id int primary key auto_increment,
@@ -52,7 +57,6 @@ high_date date
 create table sale_detail(
 id int primary key auto_increment,
 sale_id int,
-detail_id int,
 product_id int,
 quantity int,
 subtotal double,
@@ -68,9 +72,16 @@ birth_date date
 );
 
 select * from clients;
-select * from client;
 select * from sale;
 select * from products;
 select * from sale_detail;
 
-DELETE FROM clients WHERE id=11;
+delete from sale
+where id=13;
+
+alter table sale ;
+ALTER TABLE sale DROP column client_id;
+
+ALTER TABLE sale CHANGE COLUMN client_id client_id VARCHAR(11);
+
+insert into sale(high_date,total,client_id) values ("2022-10-21", 18999.99,1);

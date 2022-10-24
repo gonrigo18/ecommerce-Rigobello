@@ -1,8 +1,9 @@
 package com.proyecto.ecommerceRigobello.controller;
 
 
-import com.proyecto.ecommerceRigobello.model.ProductsModel;
-import com.proyecto.ecommerceRigobello.service.ProductsService;
+import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
+import com.proyecto.ecommerceRigobello.model.entities.ProductsModel;
+import com.proyecto.ecommerceRigobello.service.ProductsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import java.util.List;
 public class ProductsController {
 
     @Autowired
-    private ProductsService productsService;
+    private ProductsServiceImpl productsService;
 
     @PostMapping("/")
     public ResponseEntity <ProductsModel> create (@RequestBody ProductsModel product){
@@ -28,7 +29,7 @@ public class ProductsController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductsModel> update (@RequestBody ProductsModel productUpdate, @PathVariable Long id){
+    public ResponseEntity<ProductsModel> update (@RequestBody ProductsModel productUpdate, @PathVariable Long id) throws ResourceNotFoundException {
         return new ResponseEntity<>(this.productsService.update(productUpdate,id), HttpStatus.OK);
     }
 

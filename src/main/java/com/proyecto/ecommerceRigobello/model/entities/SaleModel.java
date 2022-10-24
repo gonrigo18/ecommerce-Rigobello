@@ -1,8 +1,8 @@
-package com.proyecto.ecommerceRigobello.model;
+package com.proyecto.ecommerceRigobello.model.entities;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -14,7 +14,7 @@ public class SaleModel {
     private Long id;
 
     @Column (name = "high_date")
-    private String high_date;
+    private LocalDate high_date;
 
     @Column (name = "total")
     private Double total;
@@ -23,7 +23,7 @@ public class SaleModel {
     @JoinColumn(name = "client_id")
     private ClientsModel client;
 
-    @OneToMany (mappedBy = "sale", cascade = CascadeType.ALL)
-    private List<Sale_detailModel> sale_detail;
+    @OneToOne(mappedBy = "sale", cascade = CascadeType.ALL)
+    private Sale_detailModel sale_detail;
 
 }

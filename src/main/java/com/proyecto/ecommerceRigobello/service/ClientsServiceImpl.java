@@ -2,9 +2,9 @@ package com.proyecto.ecommerceRigobello.service;
 
 
 import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
-import com.proyecto.ecommerceRigobello.model.ClientsModel;
+import com.proyecto.ecommerceRigobello.model.entities.ClientsModel;
 import com.proyecto.ecommerceRigobello.model.mapper.ClientsMapper;
-import com.proyecto.ecommerceRigobello.model.response.ClientsYearsResponse;
+import com.proyecto.ecommerceRigobello.model.response.ClientsResponse;
 import com.proyecto.ecommerceRigobello.repository.ClientsRepository;
 import com.proyecto.ecommerceRigobello.service.abstraction.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +30,16 @@ public class ClientsServiceImpl implements ClientsService {
 
 
     @Override
-    public ClientsYearsResponse findById(Long id) throws ResourceNotFoundException{
+    public ClientsResponse findById(Long id) throws ResourceNotFoundException{
        Optional<ClientsModel> clientBD = this.clientsRepository.findById(id);
        if (clientBD.isPresent()){
-           return ClientsMapper.clientsToResponse(clientsRepository.findById(id).orElseThrow());
+           return ClientsMapper.clientsYears(clientsRepository.findById(id).orElseThrow());
        }else{
            throw new ResourceNotFoundException("El cliente no existe");
        }
     }
+
+
 
     public ClientsModel update(ClientsModel client, Long id) throws ResourceNotFoundException {
        Optional<ClientsModel> clientBD= this.clientsRepository.findById(id);
@@ -52,9 +54,9 @@ public class ClientsServiceImpl implements ClientsService {
        }
    }
 
+
    public void delete (Long id){
        this.clientsRepository.deleteById(id);
    }
-
 
 }

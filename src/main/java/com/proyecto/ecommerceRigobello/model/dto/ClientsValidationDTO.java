@@ -1,4 +1,4 @@
-package com.proyecto.ecommerceRigobello.dto;
+package com.proyecto.ecommerceRigobello.model.dto;
 
 public class ClientsValidationDTO {
     public String Message;

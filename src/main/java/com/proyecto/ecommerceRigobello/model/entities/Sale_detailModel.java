@@ -1,4 +1,4 @@
-package com.proyecto.ecommerceRigobello.model;
+package com.proyecto.ecommerceRigobello.model.entities;
 
 import lombok.Data;
 
@@ -13,12 +13,9 @@ public class Sale_detailModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-   @ManyToOne
+   @OneToOne (cascade = CascadeType.ALL)
    @JoinColumn (name = "sale_id")
     private SaleModel sale;
-
-    @Column (name = "detail_id")
-    private Long detail_id;
 
     @ManyToOne
     @JoinColumn (name = "product_id")

@@ -1,17 +1,18 @@
 package com.proyecto.ecommerceRigobello.model.mapper;
 
-import com.proyecto.ecommerceRigobello.model.ClientsModel;
-import com.proyecto.ecommerceRigobello.model.response.ClientsYearsResponse;
+import com.proyecto.ecommerceRigobello.model.entities.ClientsModel;
+import com.proyecto.ecommerceRigobello.model.response.ClientsResponse;
 
 import java.time.LocalDate;
 import java.time.Period;
 
+
 public class ClientsMapper {
 
 
-    public static ClientsYearsResponse clientsToResponse(ClientsModel clients){
+    public static ClientsResponse clientsYears(ClientsModel clients){
 
-        return ClientsYearsResponse.builder()
+        return ClientsResponse.builder()
                 .id(clients.getId())
                 .name(clients.getName())
                 .lastname(clients.getLastname())

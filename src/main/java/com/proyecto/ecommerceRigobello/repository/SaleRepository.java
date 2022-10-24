@@ -1,6 +1,6 @@
 package com.proyecto.ecommerceRigobello.repository;
 
-import com.proyecto.ecommerceRigobello.model.SaleModel;
+import com.proyecto.ecommerceRigobello.model.entities.SaleModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
