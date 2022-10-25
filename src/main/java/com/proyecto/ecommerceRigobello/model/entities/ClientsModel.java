@@ -2,13 +2,14 @@ package com.proyecto.ecommerceRigobello.model.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "clients")
-public class ClientsModel {
+public class ClientsModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

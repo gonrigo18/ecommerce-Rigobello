@@ -2,7 +2,7 @@ package com.proyecto.ecommerceRigobello.service;
 
 import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import com.proyecto.ecommerceRigobello.model.entities.Sale_detailModel;
-import com.proyecto.ecommerceRigobello.model.mapper.Sale_detailMapper;
+import com.proyecto.ecommerceRigobello.model.mappers.Sale_detailMapper;
 import com.proyecto.ecommerceRigobello.model.response.Sale_detailResponse;
 import com.proyecto.ecommerceRigobello.repository.Sale_detailRepository;
 import com.proyecto.ecommerceRigobello.service.abstraction.Sale_detailService;

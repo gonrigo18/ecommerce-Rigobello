@@ -1,4 +1,4 @@
-package com.proyecto.ecommerceRigobello.model.mapper;
+package com.proyecto.ecommerceRigobello.model.mappers;
 
 import com.proyecto.ecommerceRigobello.model.entities.SaleModel;
 import com.proyecto.ecommerceRigobello.model.response.SaleResponse;
