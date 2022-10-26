@@ -24,7 +24,5 @@ public class SaleModel implements Serializable {
     @JoinColumn(name = "client_id")
     private ClientsModel client;
 
-    @OneToOne(mappedBy = "sale", cascade = CascadeType.ALL)
-    private Sale_detailModel sale_detail;
 
 }

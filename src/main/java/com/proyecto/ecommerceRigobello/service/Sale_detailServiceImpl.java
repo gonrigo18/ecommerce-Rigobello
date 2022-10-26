@@ -20,14 +20,12 @@ public class Sale_detailServiceImpl implements Sale_detailService{
         public Sale_detailModel create(Sale_detailModel newDetail){
             return this.sale_detailRepository.save(newDetail);
         }
-
         public List<Sale_detailModel> findAll(){
             return this.sale_detailRepository.findAll();
         }
 
-
         @Override
-        public Sale_detailResponse findById(Long id) throws ResourceNotFoundException {
+        public Sale_detailResponse findById(Long id) throws Exception {
             Optional<Sale_detailModel> detailDB = this.sale_detailRepository.findById(id);
             if (detailDB.isPresent()){
                 return Sale_detailMapper.detailResponse(sale_detailRepository.findById(id).orElseThrow());
@@ -35,8 +33,7 @@ public class Sale_detailServiceImpl implements Sale_detailService{
                 throw new ResourceNotFoundException("El detalle no existe");
             }
         }
-
-        public Sale_detailModel update(Sale_detailModel detail, Long id) throws ResourceNotFoundException {
+        public Sale_detailModel update(Sale_detailModel detail, Long id) throws Exception {
             Optional<Sale_detailModel> detailDB= this.sale_detailRepository.findById(id);
             if (detailDB.isPresent()){
                 Sale_detailModel c = detailDB.get();
@@ -48,11 +45,6 @@ public class Sale_detailServiceImpl implements Sale_detailService{
             }else{
                 throw new ResourceNotFoundException("El detalle no existe");
             }
-        }
-
-
-        public void delete (Long id){
-            this.sale_detailRepository.deleteById(id);
         }
 
     }

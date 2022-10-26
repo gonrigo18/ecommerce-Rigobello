@@ -32,8 +32,5 @@ public class ProductsModel implements Serializable {
     @Column (name = "high_date")
     private String high_date;
 
-    @OneToMany (mappedBy = "products", cascade = CascadeType.ALL)
-    private List<Sale_detailModel> sale_detail;
-
 
 }

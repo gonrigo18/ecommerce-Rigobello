@@ -3,6 +3,7 @@ package com.proyecto.ecommerceRigobello.controller;
 
 import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import com.proyecto.ecommerceRigobello.model.entities.ProductsModel;
+import com.proyecto.ecommerceRigobello.model.response.ProductsResponse;
 import com.proyecto.ecommerceRigobello.service.ProductsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class ProductsController {
     private ProductsServiceImpl productsService;
 
     @PostMapping("/")
-    public ResponseEntity <ProductsModel> create (@RequestBody ProductsModel product){
+    public ResponseEntity <ProductsModel> create (@RequestBody ProductsModel product) throws Exception{
         return new ResponseEntity<>(this.productsService.create(product), HttpStatus.OK);
     }
 
@@ -32,7 +33,14 @@ public class ProductsController {
     public ResponseEntity<ProductsModel> update (@RequestBody ProductsModel productUpdate, @PathVariable Long id) throws ResourceNotFoundException {
         return new ResponseEntity<>(this.productsService.update(productUpdate,id), HttpStatus.OK);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductsResponse> findById(@PathVariable long id) throws Exception {
+        return new ResponseEntity<>(this.productsService.findById(id),HttpStatus.OK);
+    }
 
-
+    @GetMapping("/sku/{sku}")
+    public ResponseEntity<ProductsResponse> findBySku(@PathVariable String sku) throws Exception {
+        return new ResponseEntity<>(this.productsService.findBySku(sku),HttpStatus.OK);
+    }
 
 }

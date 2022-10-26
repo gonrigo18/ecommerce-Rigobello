@@ -11,7 +11,6 @@ public class SaleMapper {
                 .high_date(sale.getHigh_date())
                 .total(sale.getTotal())
                 .client(sale.getClient())
-                .sale_detail(sale.getSale_detail())
                 .build();
     }
 

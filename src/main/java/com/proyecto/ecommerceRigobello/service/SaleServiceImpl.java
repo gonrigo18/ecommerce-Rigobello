@@ -21,7 +21,6 @@ public class SaleServiceImpl implements SaleService {
     SaleRepository saleRepository;
     private KafkaProperties.Admin request;
 
-
     public SaleModel create(SaleModel newSale) {
         return this.saleRepository.save(newSale);
     }
@@ -36,7 +35,7 @@ public class SaleServiceImpl implements SaleService {
         if (clientBD.isPresent()){
             return SaleMapper.saleResponse(saleRepository.findById(id).orElseThrow());
         }else{
-            throw new ResourceNotFoundException("La venta no existe no existe");
+            throw new ResourceNotFoundException("La venta no existe");
         }
     }
 }

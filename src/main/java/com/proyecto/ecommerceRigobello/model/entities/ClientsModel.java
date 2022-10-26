@@ -4,7 +4,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
+
 
 @Data
 @Entity
@@ -26,9 +26,6 @@ public class ClientsModel implements Serializable {
 
     @Column (name ="birth_date")
     private LocalDate birth_date;
-
-    @OneToMany (mappedBy = "client")
-    private List<SaleModel> sales;
 
 
 }

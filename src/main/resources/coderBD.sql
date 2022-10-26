@@ -1,29 +1,3 @@
-use coderHouse;
-CREATE TABLE Alumnos (nombre VARCHAR(150) NOT NULL, apellido VARCHAR (150) NOT NULL, dni INT NOT NULL, legajo INT NOT NULL);
-SHOW TABLES;
-DESCRIBE alumnos;
-INSERT INTO alumnos values ( 'Gonzalo', 'Rigobello', '36614532', '74794');
-INSERT INTO alumnos values ( 'Matias', 'Lopez', '1234567', '63773');
-INSERT INTO alumnos values ( 'NN', 'NN', '1', '1');
-SELECT * FROM alumnos;
-SELECT * FROM productos;
-SELECT * FROM rubros;
-SELECT * FROM alumnos WHERE dni>15000000;
-SELECT nombre FROM alumnos WHERE nombre='Gonzalo';
-SELECT * FROM alumnos WHERE nombre='Gonzalo';
-ALTER TABLE alumnos ADD column fecha_nacimiento date;
-ALTER TABLE sale_detail DROP column detail_id ;
-
-delete from sale
-where id=2;
-
-CREATE TABLE productos (id INT , descripcion VARCHAR(45) NOT NULL);
-ALTER TABLE productos ADD column id_rubro INT;
-
-create table rubros (id int primary key auto_increment not null, descripcion varchar(20));
-
-create table productos (id int primary key auto_increment not null, codigo int, descripcion varchar(20), precioCompra decimal, precioVenta decimal, stock int, rubro_id int, constraint fk_id_rubro foreign key (rubro_id) references rubros (id));
-
 create database coder;
 use coder;
 
@@ -64,24 +38,10 @@ constraint fk_sale_id foreign key (sale_id) references sale(id),
 constraint fk_product_id foreign key (product_id) references products(id)
 );
 
-create table client (
-id int primary key auto_increment,
-name varchar(100) default null,
-lastname varchar(45) default null,
-birth_date date
-);
 
 select * from clients;
 select * from sale;
 select * from products;
 select * from sale_detail;
 
-delete from sale
-where id=13;
-
-alter table sale ;
-ALTER TABLE sale DROP column client_id;
-
-ALTER TABLE sale CHANGE COLUMN client_id client_id VARCHAR(11);
-
-insert into sale(high_date,total,client_id) values ("2022-10-21", 18999.99,1);
+delete from clients where id=8;

@@ -12,12 +12,16 @@ public class ControllerException {
 
      @ExceptionHandler ({ResourceNotFoundException.class})
      public ResponseEntity<String> resourceNotFoundException (Exception e){
-         return new ResponseEntity<>("El cliente no existe", HttpStatus.NOT_FOUND);
+         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
      }
 
     @ExceptionHandler ({NullFieldException.class})
      public ResponseEntity<String> nullFieldException (Exception e){
          return new ResponseEntity<>(e.getMessage(),  HttpStatus.INTERNAL_SERVER_ERROR);
+     }
+     @ExceptionHandler({ClientAlreadyExistsException.class})
+    public ResponseEntity<String> clientAlreadyExistsException (Exception e){
+         return new ResponseEntity<>(e.getMessage(),HttpStatus.CONFLICT);
      }
 
 

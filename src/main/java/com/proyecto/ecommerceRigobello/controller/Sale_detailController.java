@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping(path = "api/details") // direccion raiz
+@RequestMapping(path = "api/details")
 @RestController
 public class Sale_detailController {
 
@@ -23,19 +23,19 @@ public class Sale_detailController {
         return new ResponseEntity<>(this.sale_detailService.create(detail), HttpStatus.OK);
     }
 
-    @GetMapping("/") // metodo get
+    @GetMapping("/")
     public ResponseEntity<List<Sale_detailModel>> findAll(){
         return new ResponseEntity<>(this.sale_detailService.findAll(),HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Sale_detailResponse> findById(@PathVariable long id) throws ResourceNotFoundException {
+    public ResponseEntity<Sale_detailResponse> findById(@PathVariable long id) throws Exception {
         return new ResponseEntity<>(this.sale_detailService.findById(id),HttpStatus.OK);
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Sale_detailModel> update (@RequestBody Sale_detailModel detailUpdate, @PathVariable Long id) throws ResourceNotFoundException {
+    public ResponseEntity<Sale_detailModel> update (@RequestBody Sale_detailModel detailUpdate, @PathVariable Long id) throws Exception {
         return new ResponseEntity<>(this.sale_detailService.update(detailUpdate,id), HttpStatus.OK);
     }
 

@@ -1,12 +1,16 @@
 package com.proyecto.ecommerceRigobello.service;
 
 
+import com.proyecto.ecommerceRigobello.controllerExceptions.ClientAlreadyExistsException;
+import com.proyecto.ecommerceRigobello.controllerExceptions.NullFieldException;
 import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import com.proyecto.ecommerceRigobello.model.entities.ClientsModel;
 import com.proyecto.ecommerceRigobello.model.mappers.ClientsMapper;
 import com.proyecto.ecommerceRigobello.model.response.ClientsResponse;
+import com.proyecto.ecommerceRigobello.model.validator.ClientsValidationDTO;
 import com.proyecto.ecommerceRigobello.repository.ClientsRepository;
 import com.proyecto.ecommerceRigobello.service.abstraction.ClientsService;
+import com.proyecto.ecommerceRigobello.validations.ClientsValidations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,20 +21,27 @@ import java.util.Optional;
 @Service
 public class ClientsServiceImpl implements ClientsService {
 
-   @Autowired
-   ClientsRepository clientsRepository;
+    @Autowired
+    ClientsRepository clientsRepository;
 
-   public ClientsModel create(ClientsModel newClient){
-       return this.clientsRepository.save(newClient);
-   }
-
+    public ClientsModel create(ClientsModel newClient) throws Exception {
+        ClientsValidationDTO flag = ClientsValidations.checkFields(newClient);
+        ClientsModel clientBD = this.clientsRepository.findByDni(newClient.getDni());
+        if (clientBD != null) {
+            if ((newClient.getDni().equals(clientBD.getDni()))) {
+                throw new ClientAlreadyExistsException(flag.Message);
+            }
+        }else if (flag.hasError) {
+            throw new NullFieldException(flag.Message);
+        }
+        return this.clientsRepository.save(newClient);
+    }
    public List<ClientsModel> findAll(){
     return this.clientsRepository.findAll();
    }
 
-
     @Override
-    public ClientsResponse findById(Long id) throws ResourceNotFoundException{
+    public ClientsResponse findById(Long id) throws Exception{
        Optional<ClientsModel> clientBD = this.clientsRepository.findById(id);
        if (clientBD.isPresent()){
            return ClientsMapper.clientsYears(clientsRepository.findById(id).orElseThrow());
@@ -39,9 +50,7 @@ public class ClientsServiceImpl implements ClientsService {
        }
     }
 
-
-
-    public ClientsModel update(ClientsModel client, Long id) throws ResourceNotFoundException {
+    public ClientsModel update(ClientsModel client, Long id) throws Exception {
        Optional<ClientsModel> clientBD= this.clientsRepository.findById(id);
        if (clientBD.isPresent()){
            ClientsModel c = clientBD.get();
@@ -53,7 +62,6 @@ public class ClientsServiceImpl implements ClientsService {
            throw new ResourceNotFoundException("El cliente no existe");
        }
    }
-
 
    public void delete (Long id){
        this.clientsRepository.deleteById(id);
