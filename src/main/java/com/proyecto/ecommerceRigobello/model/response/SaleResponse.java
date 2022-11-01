@@ -20,6 +20,5 @@ public class SaleResponse {
     private LocalDate high_date;
     private Double total;
     private ClientsModel client;
-    private Sale_detailModel sale_detail;
 
 }
