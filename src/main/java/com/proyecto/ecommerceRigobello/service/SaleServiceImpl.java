@@ -31,11 +31,9 @@ public class SaleServiceImpl implements SaleService {
 
     @Override
     public SaleResponse findById(Long id) throws ResourceNotFoundException {
-        Optional<SaleModel> clientBD = this.saleRepository.findById(id);
-        if (clientBD.isPresent()){
+        SaleModel saleBD = this.saleRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("La venta no existe"));
             return SaleMapper.saleResponse(saleRepository.findById(id).orElseThrow());
-        }else{
-            throw new ResourceNotFoundException("La venta no existe");
-        }
     }
+
+
 }

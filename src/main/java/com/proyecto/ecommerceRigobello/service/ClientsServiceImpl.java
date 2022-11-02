@@ -42,25 +42,16 @@ public class ClientsServiceImpl implements ClientsService {
 
     @Override
     public ClientsResponse findById(Long id) throws Exception{
-       Optional<ClientsModel> clientBD = this.clientsRepository.findById(id);
-       if (clientBD.isPresent()){
-           return ClientsMapper.clientsYears(clientsRepository.findById(id).orElseThrow());
-       }else{
-           throw new ResourceNotFoundException("El cliente no existe");
-       }
+       ClientsModel clientBD = this.clientsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("El cliente no existe"));
+       return ClientsMapper.clientsYears(clientsRepository.findById(id).orElseThrow());
     }
 
     public ClientsModel update(ClientsModel client, Long id) throws Exception {
-       Optional<ClientsModel> clientBD= this.clientsRepository.findById(id);
-       if (clientBD.isPresent()){
-           ClientsModel c = clientBD.get();
-           c.setLastname(client.getLastname());
-           c.setName(client.getName());
-           c.setBirth_date(client.getBirth_date());
-           return this.clientsRepository.save(c);
-       }else{
-           throw new ResourceNotFoundException("El cliente no existe");
-       }
+       ClientsModel clientBD= this.clientsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("El cliente no existe"));
+        clientBD.setLastname(client.getLastname());
+        clientBD.setName(client.getName());
+        clientBD.setBirth_date(client.getBirth_date());
+        return this.clientsRepository.save(clientBD);
    }
 
    public void delete (Long id){

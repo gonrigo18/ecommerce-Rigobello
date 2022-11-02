@@ -1,7 +1,6 @@
 package com.proyecto.ecommerceRigobello.controller;
 
 
-import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import com.proyecto.ecommerceRigobello.model.entities.ProductsModel;
 import com.proyecto.ecommerceRigobello.model.response.ProductsResponse;
 import com.proyecto.ecommerceRigobello.service.ProductsServiceImpl;
@@ -30,7 +29,7 @@ public class ProductsController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductsModel> update (@RequestBody ProductsModel productUpdate, @PathVariable Long id) throws ResourceNotFoundException {
+    public ResponseEntity<ProductsModel> update (@RequestBody ProductsModel productUpdate, @PathVariable Long id) throws Exception {
         return new ResponseEntity<>(this.productsService.update(productUpdate,id), HttpStatus.OK);
     }
     @GetMapping("/{id}")

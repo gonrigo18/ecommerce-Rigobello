@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductsServiceImpl implements ProductsService {
@@ -33,27 +32,18 @@ public class ProductsServiceImpl implements ProductsService {
 
     @Override
     public ProductsResponse findById(Long id) throws Exception{
-        Optional<ProductsModel> productBD = this.productsRepository.findById(id);
-        if (productBD.isPresent()){
-            return ProductsMapper.skuResponse(productsRepository.findById(id).orElseThrow());
-        }else{
-            throw new ResourceNotFoundException("El producto no existe");
-        }
+        ProductsModel productBD = this.productsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("El producto no existe"));
+        return ProductsMapper.skuResponse(productsRepository.findById(id).orElseThrow());
     }
 
-    public ProductsModel update(ProductsModel product, Long id) throws ResourceNotFoundException {
-        Optional<ProductsModel> clientBD= this.productsRepository.findById(id);
-        if (clientBD.isPresent()){
-            ProductsModel c = clientBD.get();
-            c.setSku(product.getSku());
-            c.setStock(product.getStock());
-            c.setDescription(product.getDescription());
-            c.setSale_price(product.getSale_price());
-            c.setPurchase_price(product.getPurchase_price());
-            return this.productsRepository.save(c);
-        }else{
-            throw new ResourceNotFoundException("El cliente no existe");
-        }
+    public ProductsModel update(ProductsModel product, Long id) throws Exception {
+        ProductsModel productBD = this.productsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("El producto no existe"));
+            productBD.setSku(product.getSku());
+            productBD.setStock(product.getStock());
+            productBD.setDescription(product.getDescription());
+            productBD.setSale_price(product.getSale_price());
+            productBD.setPurchase_price(product.getPurchase_price());
+            return this.productsRepository.save(productBD);
     }
     public void delete (Long id){
         this.productsRepository.deleteById(id);

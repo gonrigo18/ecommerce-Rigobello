@@ -11,18 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class EcommerceApplication implements CommandLineRunner {
-
-	@Autowired
-	ClientsRepository clientRepository;
-	@Autowired
-	Sale_detailRepository detalle_ventaRepository;
-	@Autowired
-	ProductsRepository productosRepository;
-	@Autowired
-	SaleRepository ventaRepository;
-
 	public static void main(String[] args) { SpringApplication.run(EcommerceApplication.class, args);}
-
 	@Override
 	public void run(String... args) throws Exception {
 	}

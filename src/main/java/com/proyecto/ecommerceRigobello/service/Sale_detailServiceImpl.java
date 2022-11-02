@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 @Service
 public class Sale_detailServiceImpl implements Sale_detailService{
 
@@ -26,25 +26,16 @@ public class Sale_detailServiceImpl implements Sale_detailService{
 
         @Override
         public Sale_detailResponse findById(Long id) throws Exception {
-            Optional<Sale_detailModel> detailDB = this.sale_detailRepository.findById(id);
-            if (detailDB.isPresent()){
-                return Sale_detailMapper.detailResponse(sale_detailRepository.findById(id).orElseThrow());
-            }else{
-                throw new ResourceNotFoundException("El detalle no existe");
-            }
+            Sale_detailModel detailDB = this.sale_detailRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("El detalle no existe"));
+            return Sale_detailMapper.detailResponse(sale_detailRepository.findById(id).orElseThrow());
         }
         public Sale_detailModel update(Sale_detailModel detail, Long id) throws Exception {
-            Optional<Sale_detailModel> detailDB= this.sale_detailRepository.findById(id);
-            if (detailDB.isPresent()){
-                Sale_detailModel c = detailDB.get();
-                c.setSale(detail.getSale());
-                c.setProducts(detail.getProducts());
-                c.setSubtotal(detail.getSubtotal());
-                c.setQuantity(detail.getQuantity());
-                return this.sale_detailRepository.save(c);
-            }else{
-                throw new ResourceNotFoundException("El detalle no existe");
-            }
+            Sale_detailModel detailDB = this.sale_detailRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("El detalle no existe"));
+            detailDB.setSale(detail.getSale());
+            detailDB.setProducts(detail.getProducts());
+            detailDB.setSubtotal(detail.getSubtotal());
+            detailDB.setQuantity(detail.getQuantity());
+            return this.sale_detailRepository.save(detailDB);
         }
 
     }
