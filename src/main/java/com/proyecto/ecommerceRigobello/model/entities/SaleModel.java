@@ -1,11 +1,18 @@
 package com.proyecto.ecommerceRigobello.model.entities;
-import lombok.Data;
 
+import lombok.*;
+import org.hibernate.Hibernate;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
-@Data
+
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(name = "sale")
 public class SaleModel implements Serializable {
@@ -15,7 +22,10 @@ public class SaleModel implements Serializable {
     private Long id;
 
     @Column (name = "high_date")
-    private LocalDate high_date;
+    private Date high_date;
+
+    @Column (name = "quantity")
+    private int quantity;
 
     @Column (name = "total")
     private Double total;
@@ -24,5 +34,20 @@ public class SaleModel implements Serializable {
     @JoinColumn(name = "client_id")
     private ClientsModel client;
 
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<Sale_detailModel> sale_Detail;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        SaleModel saleModel = (SaleModel) o;
+        return id != null && Objects.equals(id, saleModel.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

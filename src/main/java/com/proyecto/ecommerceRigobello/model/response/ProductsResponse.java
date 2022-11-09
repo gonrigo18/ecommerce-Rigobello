@@ -1,5 +1,6 @@
 package com.proyecto.ecommerceRigobello.model.response;
 
+import com.proyecto.ecommerceRigobello.model.entities.ProductsModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class ProductsResponse {
+public class ProductsResponse extends ProductsModel {
 
     private Long id;
     private String sku;

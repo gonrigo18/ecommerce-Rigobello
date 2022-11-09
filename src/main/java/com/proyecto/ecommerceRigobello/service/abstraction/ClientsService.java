@@ -1,8 +1,8 @@
 package com.proyecto.ecommerceRigobello.service.abstraction;
 
-import com.proyecto.ecommerceRigobello.model.response.ClientsResponse;
+import com.proyecto.ecommerceRigobello.model.entities.ClientsModel;
 
 public interface ClientsService {
-      ClientsResponse findById(Long id) throws Exception;
+      ClientsModel findById(Long id) throws Exception;
 
 }

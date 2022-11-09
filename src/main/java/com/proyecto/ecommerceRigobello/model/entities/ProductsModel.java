@@ -1,11 +1,16 @@
 package com.proyecto.ecommerceRigobello.model.entities;
-import lombok.Data;
 
+import lombok.*;
+import org.hibernate.Hibernate;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Objects;
 
-@Data
+
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(name = "products")
 public class ProductsModel implements Serializable {
@@ -32,5 +37,16 @@ public class ProductsModel implements Serializable {
     @Column (name = "high_date")
     private String high_date;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        ProductsModel that = (ProductsModel) o;
+        return id != null && Objects.equals(id, that.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

@@ -13,10 +13,7 @@ import com.proyecto.ecommerceRigobello.service.abstraction.ClientsService;
 import com.proyecto.ecommerceRigobello.validations.ClientsValidations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClientsServiceImpl implements ClientsService {
@@ -36,16 +33,13 @@ public class ClientsServiceImpl implements ClientsService {
         }
         return this.clientsRepository.save(newClient);
     }
-   public List<ClientsModel> findAll(){
+    public List<ClientsModel> findAll(){
     return this.clientsRepository.findAll();
    }
-
     @Override
     public ClientsResponse findById(Long id) throws Exception{
-       ClientsModel clientBD = this.clientsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("El cliente no existe"));
-       return ClientsMapper.clientsYears(clientsRepository.findById(id).orElseThrow());
+        return ClientsMapper.clientsYears(clientsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("El cliente no existe")));
     }
-
     public ClientsModel update(ClientsModel client, Long id) throws Exception {
        ClientsModel clientBD= this.clientsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("El cliente no existe"));
         clientBD.setLastname(client.getLastname());
@@ -53,7 +47,6 @@ public class ClientsServiceImpl implements ClientsService {
         clientBD.setBirth_date(client.getBirth_date());
         return this.clientsRepository.save(clientBD);
    }
-
    public void delete (Long id){
        this.clientsRepository.deleteById(id);
    }

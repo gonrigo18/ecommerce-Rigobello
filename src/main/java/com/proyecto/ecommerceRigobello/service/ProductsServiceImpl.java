@@ -29,13 +29,10 @@ public class ProductsServiceImpl implements ProductsService {
             throw new ResourceNotFoundException("El producto no existe");
         }
     }
-
     @Override
     public ProductsResponse findById(Long id) throws Exception{
-        ProductsModel productBD = this.productsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("El producto no existe"));
-        return ProductsMapper.skuResponse(productsRepository.findById(id).orElseThrow());
+        return ProductsMapper.skuResponse(productsRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("El producto no existe")));
     }
-
     public ProductsModel update(ProductsModel product, Long id) throws Exception {
         ProductsModel productBD = this.productsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("El producto no existe"));
             productBD.setSku(product.getSku());
