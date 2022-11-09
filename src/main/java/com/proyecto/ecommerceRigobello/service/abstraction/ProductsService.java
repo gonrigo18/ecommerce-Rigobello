@@ -1,11 +1,11 @@
 package com.proyecto.ecommerceRigobello.service.abstraction;
 
 
-import com.proyecto.ecommerceRigobello.model.response.ProductsResponse;
+import com.proyecto.ecommerceRigobello.model.entities.ProductsModel;
 
 public interface ProductsService {
 
-    ProductsResponse findById(Long id) throws Exception;
+    ProductsModel findById(Long id) throws Exception;
 
-    ProductsResponse findBySku(String sku) throws Exception;
+    ProductsModel findBySku(String sku) throws Exception;
 }

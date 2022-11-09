@@ -1,5 +1,6 @@
 package com.proyecto.ecommerceRigobello.model.response;
 
+import com.proyecto.ecommerceRigobello.model.entities.ClientsModel;
 import com.proyecto.ecommerceRigobello.model.entities.SaleModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-public class ClientsResponse {
+public class ClientsResponse extends ClientsModel {
     private Long id;
     private String name;
     private String lastname;

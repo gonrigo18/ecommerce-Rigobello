@@ -1,9 +1,9 @@
 package com.proyecto.ecommerceRigobello.service.abstraction;
 
 
-import com.proyecto.ecommerceRigobello.model.response.Sale_detailResponse;
+import com.proyecto.ecommerceRigobello.model.entities.Sale_detailModel;
 
 public interface Sale_detailService {
 
-    Sale_detailResponse findById(Long id) throws Exception;
+    Sale_detailModel findById(Long id) throws Exception;
 }

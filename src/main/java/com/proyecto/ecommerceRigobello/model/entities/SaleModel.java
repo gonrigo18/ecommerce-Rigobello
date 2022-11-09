@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+
 @Data
 @Entity
 @Table(name = "sale")
@@ -17,12 +18,14 @@ public class SaleModel implements Serializable {
     @Column (name = "high_date")
     private LocalDate high_date;
 
+    @Column (name = "quantity")
+    private int quantity;
+
     @Column (name = "total")
     private Double total;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
     private ClientsModel client;
-
 
 }

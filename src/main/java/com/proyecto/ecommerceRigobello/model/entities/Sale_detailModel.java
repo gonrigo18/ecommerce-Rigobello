@@ -14,6 +14,12 @@ public class Sale_detailModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column (name = "description")
+    private String description;
+
+    @Column (name = "quantity")
+    private int quantity;
+
    @ManyToOne
    @JoinColumn (name = "sale_id")
    private SaleModel sale;
@@ -21,9 +27,6 @@ public class Sale_detailModel implements Serializable {
    @ManyToOne
    @JoinColumn (name = "product_id")
    private ProductsModel products;
-
-   @Column (name = "quantity")
-   private int quantity;
 
    @Column (name = "subtotal")
    private Double subtotal;

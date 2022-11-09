@@ -1,4 +1,5 @@
 package com.proyecto.ecommerceRigobello.model.entities;
+import com.proyecto.ecommerceRigobello.model.response.ClientsResponse;
 import lombok.Data;
 
 import javax.persistence.*;

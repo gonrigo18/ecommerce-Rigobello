@@ -1,8 +1,8 @@
 package com.proyecto.ecommerceRigobello.service.abstraction;
 
 
-import com.proyecto.ecommerceRigobello.model.response.SaleResponse;
+import com.proyecto.ecommerceRigobello.service.abstraction.dtos.SaleDTO;
 
 public interface SaleService {
-    SaleResponse findById(Long id) throws Exception;
+    SaleDTO findById(Long id) throws Exception;
 }
