@@ -1,29 +1,50 @@
 package com.proyecto.ecommerceRigobello.controller;
 
 
+import com.proyecto.ecommerceRigobello.handle.ApiException;
 import com.proyecto.ecommerceRigobello.model.entities.ProductsModel;
+import com.proyecto.ecommerceRigobello.model.request.ProductsRequest;
+import com.proyecto.ecommerceRigobello.model.response.ProductsResponse;
+import com.proyecto.ecommerceRigobello.repository.ProductsRepository;
 import com.proyecto.ecommerceRigobello.service.ProductsServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RequestMapping(path = "api/products")
 @RestController
+@RequiredArgsConstructor
 public class ProductsController {
 
     @Autowired
-    private ProductsServiceImpl productsService;
+    private ProductsRepository productsRepository;
+    private final ProductsServiceImpl productsService;
 
     @PostMapping("/")
-    public ProductsModel create (@RequestBody ProductsModel product) throws Exception{ return this.productsService.create(product); }
+    public ResponseEntity<ProductsResponse> create(@RequestBody ProductsRequest p) throws ApiException {
+        return ResponseEntity.ok(productsService.create(p));
+    }
     @GetMapping("/")
-    public List<ProductsModel> findAll(){ return this.productsService.findAll();}
+    public ResponseEntity<List<ProductsResponse>> findAll() {
+        return ResponseEntity.ok(productsService.findAll());
+    }
     @PutMapping("/{id}")
-    public ProductsModel update (@RequestBody ProductsModel productUpdate, @PathVariable Long id) throws Exception {return this.productsService.update(productUpdate,id);}
+    public ResponseEntity<ProductsResponse> update(@RequestBody ProductsRequest p) throws ApiException {
+        return ResponseEntity.ok(productsService.update(p));
+    }
     @GetMapping("/{id}")
-    public ProductsModel findById(@PathVariable long id) throws Exception { return this.productsService.findById(id); }
-    @GetMapping("/sku/{sku}")
-    public ProductsModel findBySku(@PathVariable String sku) throws Exception { return this.productsService.findBySku(sku);}
+    public ResponseEntity<ProductsResponse> findBySku(@PathVariable Long id) throws ApiException {
+        return ResponseEntity.ok(productsService.findBySku(id));
+    }
+
+    @GetMapping("/{id}/{quantity}")
+    public ResponseEntity<ProductsResponse> findBySkuAndQuantity(@PathVariable Long id, @PathVariable int quantity) throws ApiException {
+        return ResponseEntity.ok(productsService.findByProductAndQuantity(id, quantity));
+    }
+    public void deleteById(@PathVariable Long sku)throws ApiException {
+        productsService.deleteById(sku);
+    }
 
 }

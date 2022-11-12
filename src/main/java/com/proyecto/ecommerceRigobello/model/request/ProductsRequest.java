@@ -1,6 +1,6 @@
-package com.proyecto.ecommerceRigobello.model.response;
+package com.proyecto.ecommerceRigobello.model.request;
 
-import com.proyecto.ecommerceRigobello.model.entities.ProductsModel;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,14 +10,14 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class ProductsResponse {
+@AllArgsConstructor
+public class ProductsRequest {
 
-    private Long id_product;
+
     private Long sku;
     private String description;
-    private BigDecimal purchase_price;
     private BigDecimal sale_price;
+    private BigDecimal purchase_price;
     private int stock;
 }

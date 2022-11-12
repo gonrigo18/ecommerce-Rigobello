@@ -1,28 +1,36 @@
 package com.proyecto.ecommerceRigobello.controller;
 
 
-import com.proyecto.ecommerceRigobello.model.entities.ClientsModel;
-import com.proyecto.ecommerceRigobello.service.ClientsServiceImpl;
+import com.proyecto.ecommerceRigobello.handle.ApiException;
+import com.proyecto.ecommerceRigobello.model.request.ClientsRequest;
+import com.proyecto.ecommerceRigobello.model.response.ClientsResponse;
+import com.proyecto.ecommerceRigobello.service.abstraction.ClientsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
 @RequestMapping(path = "api/clients")
 @RestController
+@RequiredArgsConstructor
 public class ClientsController {
 
     @Autowired
-    private ClientsServiceImpl clientsService;
+    private ClientsService clientsService;
 
     @PostMapping("/")
-    public ClientsModel create (@RequestBody ClientsModel client) throws Exception { return this.clientsService.create(client);}
+    public ResponseEntity<ClientsResponse> create (@RequestBody ClientsRequest client) throws ApiException { return ResponseEntity.ok(clientsService.create(client));}
     @GetMapping("/")
-    public List<ClientsModel> findAll(){
-        return this.clientsService.findAll();
+    public ResponseEntity<List<ClientsResponse>> findAll(){
+        return ResponseEntity.ok(clientsService.findAll());
     }
     @GetMapping("/{id}")
-    public ClientsModel findById(@PathVariable long id) throws Exception { return this.clientsService.findById(id);}
+    public ResponseEntity<ClientsResponse> findById(@PathVariable long id) throws ApiException  { return ResponseEntity.ok(clientsService.findById(id));}
 
-
+    @GetMapping("/{dni}")
+    public ResponseEntity<ClientsResponse> findByDni(@PathVariable Long dni) throws ApiException  {
+        return ResponseEntity.ok(clientsService.findByDni(dni));
+    }
 }

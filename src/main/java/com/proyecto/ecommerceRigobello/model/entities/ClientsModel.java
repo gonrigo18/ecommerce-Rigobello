@@ -2,24 +2,24 @@ package com.proyecto.ecommerceRigobello.model.entities;
 
 import lombok.*;
 import org.hibernate.Hibernate;
-
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 
 @Getter
 @Setter
-@ToString
-@RequiredArgsConstructor
+@Builder
 @Entity
+@Data
 @Table(name = "clients")
-public class ClientsModel implements Serializable {
+public class ClientsModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_client;
 
     @Column(name = "name")
     private String name;
@@ -28,21 +28,8 @@ public class ClientsModel implements Serializable {
     private String lastname;
 
     @Column(name = "dni", unique = true)
-    private String dni;
+    private Long dni;
 
-    @Column (name ="birth_date")
-    private LocalDate birth_date;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        ClientsModel that = (ClientsModel) o;
-        return id != null && Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
+    @Column (name="high_date")
+    private Date high_date;
 }

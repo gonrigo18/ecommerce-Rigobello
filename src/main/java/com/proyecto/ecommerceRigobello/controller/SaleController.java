@@ -1,29 +1,23 @@
 package com.proyecto.ecommerceRigobello.controller;
 
-import com.proyecto.ecommerceRigobello.dto.SaleDTO;
-import com.proyecto.ecommerceRigobello.model.entities.SaleModel;
-import com.proyecto.ecommerceRigobello.service.SaleServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.proyecto.ecommerceRigobello.handle.ApiException;
+import com.proyecto.ecommerceRigobello.model.request.SaleRequest;
+import com.proyecto.ecommerceRigobello.model.response.SaleResponse;
+import com.proyecto.ecommerceRigobello.service.abstraction.SaleService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RequestMapping(path = "api/sales")
 @RestController
+@RequiredArgsConstructor
 public class SaleController {
 
-    @Autowired
-    private SaleServiceImpl saleService;
+    private final SaleService saleService;
 
     @PostMapping ("/")
-    public SaleModel create (@RequestBody SaleModel sale) throws Exception{ return this.saleService.create(sale);
+    public ResponseEntity<SaleResponse> create(@RequestBody SaleRequest c) throws ApiException {
+        return ResponseEntity.ok(saleService.create(c));
     }
-
-    @GetMapping ("/")
-    public List<SaleModel> findAll(){
-        return this.saleService.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public SaleDTO findById(@PathVariable long id) throws Exception{ return this.saleService.findById(id);}
 
 }

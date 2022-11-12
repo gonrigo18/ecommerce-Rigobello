@@ -1,19 +1,17 @@
-package com.proyecto.ecommerceRigobello.model.response;
+package com.proyecto.ecommerceRigobello.model.request;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.Date;
 
-
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Builder
-public class ClientsResponse {
+public class ClientsRequest {
     private String name;
     private String lastname;
     private Long dni;
-    private Date high_Date;
 }

@@ -1,53 +1,36 @@
 package com.proyecto.ecommerceRigobello.model.entities;
 
 import lombok.*;
-import org.hibernate.Hibernate;
 import javax.persistence.*;
-import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
+@Data
 @Entity
 @Table(name = "sale")
-public class SaleModel implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class SaleModel  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_sale;
 
-    @Column (name = "high_date")
-    private Date high_date;
-
-    @Column (name = "quantity")
-    private int quantity;
-
-    @Column (name = "total")
-    private Double total;
+    @Column
+    private Date issue_date;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
     private ClientsModel client;
 
-    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private List<Sale_detailModel> sale_Detail;
+    @ManyToMany
+    @JoinColumn(name = "detail_id", columnDefinition = "text[]" )
+    private List<Sale_detailModel> sale_detail;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        SaleModel saleModel = (SaleModel) o;
-        return id != null && Objects.equals(id, saleModel.id);
-    }
+    @Column (name = "total")
+    private BigDecimal total;
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }
