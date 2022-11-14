@@ -19,18 +19,16 @@ public class SaleModel  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_sale;
 
-    @Column
+    @Column (name="issue_date")
     private Date issue_date;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "id_client")
     private ClientsModel client;
 
     @ManyToMany
-    @JoinColumn(name = "detail_id", columnDefinition = "text[]" )
-    private List<Sale_detailModel> sale_detail;
-
-    @Column (name = "total")
+    @JoinColumn(name = "id_detail", columnDefinition = "text[]" )
+    private List<Sale_detailModel> detail;
     private BigDecimal total;
 
 }

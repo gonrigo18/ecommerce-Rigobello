@@ -1,6 +1,6 @@
 package com.proyecto.ecommerceRigobello.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -19,15 +19,15 @@ public class Sale_detailModel {
 
     @ManyToOne
     @JoinColumn(name = "sku")
-    private ProductsModel product_detail;
+    private ProductsModel productDetail;
 
-    @Column(name = "quantity")
+    @Column (name= "quantity")
     private int quantity;
 
-    @Column
+    @Column (name = "price")
     private BigDecimal price;
 
-    @Column(name = "subtotal")
+    @Column (name="total")
     private BigDecimal total;
 
 }

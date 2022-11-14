@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClientsRepository extends JpaRepository <ClientsModel, Long> {
     ClientsModel getById(Long id);
-    ClientsModel findByDni(String dni);
+    ClientsModel findByDni(Long dni);
 }

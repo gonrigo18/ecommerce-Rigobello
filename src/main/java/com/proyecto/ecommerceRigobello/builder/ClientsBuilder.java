@@ -11,6 +11,7 @@ public class ClientsBuilder {
 
     public static ClientsResponse entityToResponse(ClientsModel client) {
         return ClientsResponse.builder()
+                .id_client(client.getId_client())
                 .dni(client.getDni())
                 .name(client.getName())
                 .lastname(client.getLastname())

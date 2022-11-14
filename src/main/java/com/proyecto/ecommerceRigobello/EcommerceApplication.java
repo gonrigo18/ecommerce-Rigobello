@@ -10,6 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class EcommerceApplication implements CommandLineRunner {
 	public static void main(String[] args) { SpringApplication.run(EcommerceApplication.class, args);}
 	@Override
-	public void run(String... args) throws Exception {
+	public void run(String... args)  {
 	}
 }

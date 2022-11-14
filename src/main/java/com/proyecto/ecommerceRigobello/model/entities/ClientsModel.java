@@ -1,16 +1,14 @@
 package com.proyecto.ecommerceRigobello.model.entities;
 
+
 import lombok.*;
-import org.hibernate.Hibernate;
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
-import java.util.Objects;
 
 
-@Getter
-@Setter
+
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Entity
 @Data
@@ -21,15 +19,15 @@ public class ClientsModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_client;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "lastname")
-    private String lastname;
-
-    @Column(name = "dni", unique = true)
+    @Column(name = "dni")
     private Long dni;
 
-    @Column (name="high_date")
+    @Column (name= "name")
+    private String name;
+
+    @Column (name = "lastname")
+    private String lastname;
+
+    @Column (name= "high_date")
     private Date high_date;
 }

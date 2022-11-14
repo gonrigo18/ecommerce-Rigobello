@@ -1,23 +1,19 @@
 package com.proyecto.ecommerceRigobello.builder;
 
-import com.proyecto.ecommerceRigobello.model.entities.ProductsModel;
+import com.proyecto.ecommerceRigobello.model.entities.ClientsModel;
 import com.proyecto.ecommerceRigobello.model.entities.SaleModel;
-import com.proyecto.ecommerceRigobello.model.request.SaleRequest;
-import com.proyecto.ecommerceRigobello.model.response.ProductsResponse;
+import com.proyecto.ecommerceRigobello.model.response.ClientsResponse;
 import com.proyecto.ecommerceRigobello.model.response.SaleResponse;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @RequiredArgsConstructor
 public class SaleBuilder {
 
-    public static SaleModel requestToEntity(SaleRequest c) {
-        return SaleModel.builder()
-                .client (null)
-                .build();
-    }
+
 
     public static SaleResponse entityToResponse(SaleModel p) {
         return SaleResponse.builder()
@@ -28,7 +24,10 @@ public class SaleBuilder {
                 .build();
     }
 
-    public static List<ProductsResponse> entityToResponseList(List<ProductsModel> entityList) {
-        return entityList.stream().map(ProductsBuilder::entityToResponse).collect(Collectors.toList());
+    public static List<SaleResponse> entityToResponseList(List<SaleModel> entityList) {
+        return entityList.stream()
+                .map(SaleBuilder::entityToResponse)
+                .collect(Collectors.toList());
     }
+
 }

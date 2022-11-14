@@ -6,6 +6,7 @@ import com.proyecto.ecommerceRigobello.externRepo.DateApi;
 import com.proyecto.ecommerceRigobello.handle.ApiException;
 import com.proyecto.ecommerceRigobello.model.entities.*;
 import com.proyecto.ecommerceRigobello.model.request.SaleRequest;
+import com.proyecto.ecommerceRigobello.model.response.ClientsResponse;
 import com.proyecto.ecommerceRigobello.model.response.ProductsResponse;
 import com.proyecto.ecommerceRigobello.model.response.SaleResponse;
 import com.proyecto.ecommerceRigobello.model.response.Sale_detailResponse;
@@ -29,9 +30,6 @@ public class SaleServiceImpl implements SaleService {
     private final Sale_detailService sale_detailService;
     private final ProductsService productsService;
 
-    public List<SaleModel> findAll() {
-        return this.saleRepository.findAll();
-    }
 
     public SaleResponse create(SaleRequest c) throws ApiException {
         try{
@@ -75,6 +73,12 @@ public class SaleServiceImpl implements SaleService {
             throw new ApiException(e.getMessage());
         }
 
+    }
+
+    @Override
+    public List<SaleResponse> findAll(){
+        List<SaleModel> clientsListEntities = saleRepository.findAll();
+        return SaleBuilder.entityToResponseList(clientsListEntities);
     }
 
 

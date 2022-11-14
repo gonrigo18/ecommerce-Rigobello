@@ -2,42 +2,41 @@ create database coder;
 use coder;
 
 create table clients (
-id int primary key NOT NULL auto_increment,
-name varchar(100) NOT NULL,
-lastname varchar(45) NOT NULL,
-dni varchar (11) NOT NULL unique,
-birth_date date
+`id_client` bigint NOT NULL PRIMARY KEY auto_increment unique,
+`dni` bigint NOT NULL,
+`name` varchar(255) DEFAULT NULL,
+`lastname` varchar(255) DEFAULT NULL,
+`high_date` datetime(6) DEFAULT NULL
 );
 
 create table sale (
-id int primary key NOT NULL auto_increment,
-high_date date,
-quantity int,
-total double,
-client_id int ,
-constraint fk_client_id foreign key (client_id) references clients(id)
+`id_sale` bigint NOT NULL AUTO_INCREMENT primary key unique,
+`issue_date` datetime(6) NOT NULL,
+`id_client` bigint NOT NULL,
+`total` decimal(19,2) NOT NULL,
+CONSTRAINT `id_client` FOREIGN KEY (`id_client`) REFERENCES `clients` (`id_client`)
 );
 
 
 create table products (
-id int primary key auto_increment,
-sku varchar(50) NOT NULL,
-description varchar(150) NOT NULL,
-purchase_price double,
-sale_price double,
-stock int,
-high_date date
+`sku` bigint NOT NULL PRIMARY KEY unique,
+`description` varchar(255) NOT NULL,
+`purchase_price` decimal(19,2) NOT NULL,
+`sale_price` decimal(19,2) NOT NULL,
+`stock` int NOT NULL
 );
 
 create table sale_detail(
-id int primary key NOT NULL auto_increment,
-description varchar (100) NOT NULL,
-quantity int,
-sale_id int NOT NULL,
-product_id int NOT NULL,
-subtotal double,
-constraint fk_sale_id foreign key (sale_id) references sale(id),
-constraint fk_product_id foreign key (product_id) references products(id)
+`id_detail` bigint NOT NULL AUTO_INCREMENT primary key unique,
+`price` decimal(19,2) NOT NULL,
+`quantity` int NOT NULL,
+`total` decimal(19,2) NOT NULL,
+`sku` bigint NOT NULL,
+`sale_model_id_sale` bigint NOT NULL,
+`detail_id_detail` bigint NOT NULL,
+CONSTRAINT `detail_id_detail` FOREIGN KEY (`detail_id_detail`) REFERENCES `sale_detail` (`id_detail`),
+CONSTRAINT `sku` FOREIGN KEY (`sku`) REFERENCES `products` (`sku`),
+CONSTRAINT `sale_model_id_sale` FOREIGN KEY (`sale_model_id_sale`) REFERENCES `sale` (`id_sale`)
 );
 
 
@@ -45,5 +44,3 @@ select * from clients;
 select * from sale;
 select * from products;
 select * from sale_detail;
-
-delete from clients where id=8;

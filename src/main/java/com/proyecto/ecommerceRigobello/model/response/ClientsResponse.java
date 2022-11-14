@@ -12,8 +12,9 @@ import java.util.Date;
 @Data
 @Builder
 public class ClientsResponse {
+    private Long id_client;
+    private Long dni;
     private String name;
     private String lastname;
-    private Long dni;
     private Date high_Date;
 }

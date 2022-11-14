@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping(path = "api/sales")
 @RestController
 @RequiredArgsConstructor
@@ -18,6 +20,11 @@ public class SaleController {
     @PostMapping ("/")
     public ResponseEntity<SaleResponse> create(@RequestBody SaleRequest c) throws ApiException {
         return ResponseEntity.ok(saleService.create(c));
+    }
+
+    @GetMapping("/")
+    public  ResponseEntity<List<SaleResponse>> findAll(){
+        return  ResponseEntity.ok((saleService.findAll()));
     }
 
 }
