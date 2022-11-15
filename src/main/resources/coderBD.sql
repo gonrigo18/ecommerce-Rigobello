@@ -2,41 +2,39 @@ create database coder;
 use coder;
 
 create table clients (
-`id_client` bigint NOT NULL PRIMARY KEY auto_increment unique,
-`dni` bigint NOT NULL,
-`name` varchar(255) DEFAULT NULL,
-`lastname` varchar(255) DEFAULT NULL,
-`high_date` datetime(6) DEFAULT NULL
+`id` int primary key auto_increment,
+`dni` varchar (10) unique not null,
+`name` varchar(50)  not null,
+`lastname` varchar(50) not null,
+`birth_date` date
+);
+
+create table products (
+`id` int primary key auto_increment,
+`sku` varchar(100) unique not null,
+`description` varchar(200) not null,
+`buy_price` double not null,
+`sale_price` double not null,
+`stock` int not null,
+`high_date` date not null
 );
 
 create table sale (
-`id_sale` bigint NOT NULL AUTO_INCREMENT primary key unique,
-`issue_date` datetime(6) NOT NULL,
-`id_client` bigint NOT NULL,
-`total` decimal(19,2) NOT NULL,
-CONSTRAINT `id_client` FOREIGN KEY (`id_client`) REFERENCES `clients` (`id_client`)
-);
-
-
-create table products (
-`sku` bigint NOT NULL PRIMARY KEY unique,
-`description` varchar(255) NOT NULL,
-`purchase_price` decimal(19,2) NOT NULL,
-`sale_price` decimal(19,2) NOT NULL,
-`stock` int NOT NULL
+`id` int primary key auto_increment,
+`high_date` date not null,
+`total` double not null,
+`id_client` int not null,
+constraint `fk_id_client` foreign key (`id_client`) references `clients` (`id`)
 );
 
 create table sale_detail(
-`id_detail` bigint NOT NULL AUTO_INCREMENT primary key unique,
-`price` decimal(19,2) NOT NULL,
-`quantity` int NOT NULL,
-`total` decimal(19,2) NOT NULL,
-`sku` bigint NOT NULL,
-`sale_model_id_sale` bigint NOT NULL,
-`detail_id_detail` bigint NOT NULL,
-CONSTRAINT `detail_id_detail` FOREIGN KEY (`detail_id_detail`) REFERENCES `sale_detail` (`id_detail`),
-CONSTRAINT `sku` FOREIGN KEY (`sku`) REFERENCES `products` (`sku`),
-CONSTRAINT `sale_model_id_sale` FOREIGN KEY (`sale_model_id_sale`) REFERENCES `sale` (`id_sale`)
+`id` int primary key auto_increment,
+`id_sale` int not null,
+`id_product` int not null,
+`quantity` int not null,
+`subtotal` double not null,
+constraint `fk_id_sale` foreign key (`id_sale`) references `sale` (`id`),
+constraint `fk_id_product` foreign key (`id_product`) references `products` (`id`)
 );
 
 

@@ -3,13 +3,8 @@ package com.proyecto.ecommerceRigobello.model.entities;
 
 import lombok.*;
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
-
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Entity
 @Data
 @Table(name = "clients")
@@ -17,17 +12,30 @@ public class ClientsModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_client;
+    private long id;
 
-    @Column(name = "dni")
-    private Long dni;
+    @Column
+    private String dni;
 
-    @Column (name= "name")
+    @Column
     private String name;
 
-    @Column (name = "lastname")
+    @Column
     private String lastname;
 
-    @Column (name= "high_date")
-    private Date high_date;
+    @Column
+    private LocalDate birth_date;
+
+    public String NewClient() {
+        return String.format("Cliente creado:%nID: %d | DNI: %s | Nombre y apellido: %s %s | Fecha Nacimiento: %s.%n",
+                this.id, this.dni, this.name, this.lastname, this.birth_date);
+    }
+
+    public String UpdatedClient() {
+        return String.format("Cliente de ID %d actualizado:%nDNI: %s | Nombre y apellido: %s %s | Fecha Nacimiento: %s.%n",
+                this.id, this.dni, this.name, this.lastname, this.birth_date);
+    }
+
+
+
 }

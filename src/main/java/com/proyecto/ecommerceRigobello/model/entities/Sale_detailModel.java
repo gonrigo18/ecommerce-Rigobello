@@ -3,33 +3,37 @@ package com.proyecto.ecommerceRigobello.model.entities;
 
 import lombok.*;
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Data
 @Table(name = "sale_detail")
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Sale_detailModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_detail;
+    private long id;
 
     @ManyToOne
-    @JoinColumn(name = "sku")
-    private ProductsModel productDetail;
+    @JoinColumn(name = "id_sale")
+    private SaleModel saleId;
 
-    @Column (name= "quantity")
+    @ManyToOne
+    @JoinColumn(name = "id_product")
+    private ProductsModel productId;
+
+    @Column
     private int quantity;
 
-    @Column (name = "price")
-    private BigDecimal price;
+    @Column
+    private double total;
 
-    @Column (name="total")
-    private BigDecimal total;
-
+    public Sale_detailModel(long id, ProductsModel productId, int quantity, double total) {
+        this.id = id;
+        this.productId = productId;
+        this.quantity = quantity;
+        this.total = total;
+    }
 }
 
 
