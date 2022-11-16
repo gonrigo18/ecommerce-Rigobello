@@ -4,11 +4,11 @@ package com.proyecto.ecommerceRigobello.controllerExceptions;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
-@RestControllerAdvice
+@ControllerAdvice
 public class ControllerException {
 
 
@@ -29,10 +29,6 @@ public class ControllerException {
         return new ResponseEntity<Object>(ex.toString(), new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
-     @ExceptionHandler ({ResourceNotFoundException.class})
-     public ResponseEntity<String> resourceNotFoundException (Exception e){
-         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-     }
 
     @ExceptionHandler ({NullFieldException.class})
      public ResponseEntity<String> nullFieldException (Exception e){

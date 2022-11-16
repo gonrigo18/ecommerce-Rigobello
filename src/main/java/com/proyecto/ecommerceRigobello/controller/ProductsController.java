@@ -16,32 +16,32 @@ public class ProductsController {
     @Autowired
     private  ProductsServiceImpl productsService;
 
-    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(value= "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> findById(@PathVariable(name = "id") Long id) throws Exception {
         return new ResponseEntity<>(productsService.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/findBySku/{sku}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(value="/findBySku/{sku}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> findBySku(@PathVariable(name = "sku") String sku) throws Exception  {
         return new ResponseEntity<>(productsService.findBySku(sku), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/")
+    @GetMapping(value="/")
     public ResponseEntity<List<ProductsModel>> findAll() throws Exception {
         return new ResponseEntity<>(productsService.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/")
+    @PostMapping(value="/")
     public ResponseEntity<String> create(@RequestBody ProductsModel newProduct) throws Exception {
         return new ResponseEntity<>(productsService.create(newProduct),HttpStatus.OK);
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value="/{id}")
     public ResponseEntity<String> update(@RequestBody ProductsModel product, @PathVariable(name = "id") Long id) throws Exception {
         return new ResponseEntity<>(productsService.update(product, id), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value="/{id}")
     public ResponseEntity<String> deleteById(@PathVariable(name = "id") Long id) throws Exception {
         String wanted = productsService.deleteById(id);
         if(wanted.equals("ok"))

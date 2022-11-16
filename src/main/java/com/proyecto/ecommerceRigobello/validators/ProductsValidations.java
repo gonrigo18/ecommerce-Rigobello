@@ -12,7 +12,7 @@ public class ProductsValidations {
         if(product == null) {
             throw new IllegalArgumentException("No ingresó valores.");
         }
-        if(product.getSku().isBlank() || product.getDescription().isBlank() || product.getStock() == null || product.getBuy_price() == null || product.getSale_price() == null || product.getHigh_Date().isAfter(LocalDate.now())) {
+        if(product.getSku().isBlank() || product.getDescription().isBlank() || product.getStock() == null || product.getBuy_price() == null || product.getSale_price() == null || product.getHigh_date().isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("No puede ingresar datos vacios");
         }
     }

@@ -3,8 +3,8 @@ package com.proyecto.ecommerceRigobello.validators;
 import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import com.proyecto.ecommerceRigobello.model.entities.Sale_detailModel;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
+
 
 @Component
 public class Sale_detailValidations {

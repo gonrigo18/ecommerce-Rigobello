@@ -16,7 +16,7 @@ public class ClientsController {
     @Autowired
     private ClientsService clientsService;
 
-    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping( value= "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> findById(@PathVariable(name = "id") Long id) throws Exception {
         return new ResponseEntity<>(clientsService.findById(id), HttpStatus.OK);
     }
@@ -25,12 +25,12 @@ public class ClientsController {
     public ResponseEntity<?> findByDni(@PathVariable(name = "dni") String dni) throws Exception {
         return new ResponseEntity<>(clientsService.findByDni(dni), HttpStatus.OK);
     }
-    @GetMapping("/")
+    @GetMapping(value= "/")
     public ResponseEntity<List<ClientsModel>> findAll() throws Exception {
         return new ResponseEntity<>(clientsService.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping("/")
+    @PostMapping(value= "/")
     public ResponseEntity<String> create(@RequestBody ClientsModel newClient) throws Exception {
         return new ResponseEntity<>(clientsService.create(newClient), HttpStatus.OK);
     }
@@ -39,13 +39,13 @@ public class ClientsController {
     public ResponseEntity<String> update(@RequestBody ClientsModel client, @PathVariable Long id) throws Exception {
         return new ResponseEntity<>(clientsService.update(client, id), HttpStatus.OK);
     }
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value="/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Long id) throws Exception {
         String wanted = clientsService.deleteById(id);
         if(wanted.equals("ok"))
-            return new ResponseEntity<>("Cliente de id " + id + " eliminado.", HttpStatus.OK);
+            return new ResponseEntity<>("Cliente eliminado.", HttpStatus.OK);
         else
-            return new ResponseEntity<>("Error al eliminar cliente de id " + id + ".", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Error al eliminar cliente", HttpStatus.BAD_REQUEST);
     }
 
 }

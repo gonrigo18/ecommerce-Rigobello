@@ -1,27 +1,15 @@
 package com.proyecto.ecommerceRigobello.service;
 
-import com.proyecto.ecommerceRigobello.builder.ClientsBuilder;
-import com.proyecto.ecommerceRigobello.builder.SaleBuilder;
+
 import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import com.proyecto.ecommerceRigobello.dto.SaleDTO;
 import com.proyecto.ecommerceRigobello.dto.Sale_DetailDTO;
-import com.proyecto.ecommerceRigobello.externRepo.DateApi;
 import com.proyecto.ecommerceRigobello.model.entities.*;
-import com.proyecto.ecommerceRigobello.model.request.SaleRequest;
-import com.proyecto.ecommerceRigobello.model.response.ProductsResponse;
-import com.proyecto.ecommerceRigobello.model.response.SaleResponse;
-import com.proyecto.ecommerceRigobello.model.response.Sale_detailResponse;
 import com.proyecto.ecommerceRigobello.repository.SaleRepository;
-import com.proyecto.ecommerceRigobello.service.abstraction.ClientsService;
-import com.proyecto.ecommerceRigobello.service.abstraction.ProductsService;
 import com.proyecto.ecommerceRigobello.service.abstraction.SaleService;
-import com.proyecto.ecommerceRigobello.service.abstraction.Sale_detailService;
 import com.proyecto.ecommerceRigobello.validators.SaleValidations;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -52,7 +40,7 @@ public class SaleServiceImpl implements SaleService {
     }
     @Override
     public List<Sale_detailModel> findByDetailId(Long id) throws Exception {
-        return sale_detailService.getSale_detail(id);
+        return sale_detailService.findDetailBySaleId(id);
     }
     @Override
     public List<SaleModel> findAll() throws Exception {
@@ -62,12 +50,12 @@ public class SaleServiceImpl implements SaleService {
     }
     @Override
     public List<SaleModel> findByClientId(Long clientId) throws Exception {
-        Optional<SaleModel> client = clientsService.findByClientId(clientId);
+        Optional<ClientsModel> client = clientsService.findById(clientId);
         if(client.isPresent()) {
             return this.saleRepository.findByClientId(clientId);
         }
         else {
-            throw new ResourceNotFoundException("No se encontró el cliente en la Base de Datos.");
+            throw new ResourceNotFoundException ("No se encontró el cliente en la Base de Datos.");
         }
     }
 
@@ -78,7 +66,6 @@ public class SaleServiceImpl implements SaleService {
         double total = 0.0;
         SaleModel sale = new SaleModel(LocalDate.now(), total, client);
         sale = this.saleRepository.save(sale);
-
         for (Sale_DetailDTO detail : newSale.getDetail()) {
             ProductsModel product = this.productsService.findById(detail.getProductId()).get();
             double subtotal = detail.getQuantity() * product.getSale_price();

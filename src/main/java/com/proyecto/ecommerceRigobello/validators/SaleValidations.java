@@ -25,7 +25,7 @@ public class SaleValidations {
     }
     public void checkList(List<SaleModel> sales) throws Exception {
         if(sales == null || sales.isEmpty())
-            throw new ResourceNotFoundException("No hay ventas en la Base de Datos.");
+            throw new ResourceNotFoundException("No hay ventas generadas.");
     }
 
     public void checkDTO(SaleDTO sale) {

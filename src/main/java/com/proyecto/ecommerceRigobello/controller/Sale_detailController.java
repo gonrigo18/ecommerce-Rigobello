@@ -17,17 +17,17 @@ public class Sale_detailController {
     @Autowired
     private Sale_detailServiceImpl sale_detailService;
 
-    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(value="/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> findById(@PathVariable(name = "id") Long id) throws Exception {
         return new ResponseEntity<>(sale_detailService.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/getSale_detail/{saleId}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<List<Sale_detailModel>> getSale_detail(@PathVariable(name = "saleId") Long saleId) throws Exception {
-        return new ResponseEntity<>(sale_detailService.getSale_detail(saleId), HttpStatus.OK);
+    @GetMapping(value="/findBySaleId/{saleId}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<List<Sale_detailModel>> findDetailBySaleId(@PathVariable(name = "saleId") Long saleId) throws Exception {
+        return new ResponseEntity<>(sale_detailService.findDetailBySaleId(saleId), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/")
+    @GetMapping(value="/")
     public ResponseEntity<List<Sale_detailModel>> findAll() throws Exception {
         return new ResponseEntity<>(sale_detailService.findAll(), HttpStatus.OK);
     }

@@ -9,6 +9,7 @@ import com.proyecto.ecommerceRigobello.validators.Sale_detailValidations;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -35,14 +36,14 @@ public class Sale_detailServiceImpl implements Sale_detailService{
     }
 
     @Override
-    public List<Sale_detailModel> getSale_detail(Long saleId) throws Exception {
-        List<Sale_detailModel> detail = this.sale_detailRepository.findById(saleId);
+    public List<Sale_detailModel> findDetailBySaleId(Long saleId) throws Exception {
+        List<Sale_detailModel> detail = this.sale_detailRepository.findDetailBySaleId(saleId);
         this.sale_detailValidations.checkList(detail);
         return detail;
     }
 
     @Override
-    public List<Sale_detailModel> findAll() throws Exception {
+        public List<Sale_detailModel> findAll() throws Exception {
         List<Sale_detailModel> detail= this.sale_detailRepository.findAll();
         this.sale_detailValidations.checkList(detail);
         return detail;

@@ -1,6 +1,7 @@
 package com.proyecto.ecommerceRigobello.service;
 
 
+import com.proyecto.ecommerceRigobello.controllerExceptions.IllegalArgumentException;
 import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceAlreadyExistsException;
 import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import com.proyecto.ecommerceRigobello.model.entities.ClientsModel;
@@ -39,7 +40,7 @@ public class ClientsServiceImpl implements ClientsService {
         }
     }
     @Override
-    public ClientsModel findByDni(String dni) throws Exception {
+    public ClientsModel findByDni(String dni) throws ResourceNotFoundException {
         ClientsModel client = this.clientsRepository.findByDni(dni);
         this.clientsValidations.validateDNI(client);
         return client;

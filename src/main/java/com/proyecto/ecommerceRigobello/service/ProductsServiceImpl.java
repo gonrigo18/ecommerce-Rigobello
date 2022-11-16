@@ -8,7 +8,6 @@ import com.proyecto.ecommerceRigobello.repository.ProductsRepository;
 import com.proyecto.ecommerceRigobello.repository.Sale_detailRepository;
 import com.proyecto.ecommerceRigobello.service.abstraction.ProductsService;
 import com.proyecto.ecommerceRigobello.validators.ProductsValidations;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,11 +52,10 @@ public class ProductsServiceImpl implements ProductsService {
     @Override
     public String create(ProductsModel newProduct) throws Exception {
         productsValidations.check(newProduct);
-
         Optional<ProductsModel> productDB = Optional.ofNullable(this.productsRepository.findBySku(newProduct.getSku()));
         if(productDB.isPresent()) {
             newProduct.setStock(newProduct.getStock() + productDB.get().getStock());
-            newProduct.setHigh_Date(LocalDate.now());
+            newProduct.setHigh_date(LocalDate.now());
             ProductsModel prod = productDB.get();
             prod.setStock(0);
             update(prod, prod.getId());
@@ -76,7 +74,7 @@ public class ProductsServiceImpl implements ProductsService {
             prod.setStock(product.getStock());
             prod.setBuy_price(product.getBuy_price());
             prod.setSale_price(product.getSale_price());
-            prod.setHigh_Date(product.getHigh_Date());
+            prod.setHigh_date(product.getHigh_date());
             this.productsRepository.save(prod);
             return prod.updatedProduct();
         }
@@ -86,7 +84,7 @@ public class ProductsServiceImpl implements ProductsService {
     }
 
     @Override
-    public String updateStock(Long id, int stock, String cont) throws Exception {
+    public String updateStock(Long id, int stock, String cont) throws ResourceNotFoundException {
         Optional<ProductsModel> product = this.productsRepository.findById(id);
         if(product.isEmpty()) {
             throw new ResourceNotFoundException("No se encontró el producto");

@@ -23,15 +23,15 @@ public class ProductsModel {
     @Column
     private Double sale_price;
     @Column
-    private LocalDate high_Date;
+    private LocalDate high_date;
     public String NewProduct() {
         return String.format("Producto creado:%nID: %s | SKU: %s | Descripción: %s | Stock: %s| Precio Compra: $%s | Precio Venta: $%s | Fecha Alta: %s",
-                this.id, this.sku, this.description, this.stock, this.buy_price, this.sale_price, this.high_Date);
+                this.id, this.sku, this.description, this.stock, this.buy_price, this.sale_price, this.high_date);
     }
 
     public String updatedProduct() {
         return String.format("Producto de ID %s actualizado:%nSKU: %s | Descripción: %s | Stock: %d | Precio Compra: $%s | Precio Venta: $%s | Fecha Alta: %s",
-                this.id, this.sku, this.description, this.stock, this.buy_price, this.sale_price, this.high_Date);
+                this.id, this.sku, this.description, this.stock, this.buy_price, this.sale_price, this.high_date);
     }
 
 }
