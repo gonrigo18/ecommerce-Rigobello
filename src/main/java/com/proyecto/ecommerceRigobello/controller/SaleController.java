@@ -1,5 +1,6 @@
 package com.proyecto.ecommerceRigobello.controller;
 
+import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import com.proyecto.ecommerceRigobello.dto.SaleDTO;
 import com.proyecto.ecommerceRigobello.model.entities.SaleModel;
 import com.proyecto.ecommerceRigobello.model.entities.Sale_detailModel;
@@ -35,8 +36,8 @@ public class SaleController {
         return new ResponseEntity<>(saleService.findByClientId(id), HttpStatus.OK);
     }
 
-    @PostMapping(value="/")
-    public ResponseEntity<SaleModel> create(@RequestBody SaleDTO newSale) throws Exception {
+    @PostMapping(value="/newSale")
+    public ResponseEntity<SaleModel> create(@RequestBody SaleDTO newSale) throws ResourceNotFoundException {
         return new ResponseEntity<>(saleService.create(newSale), HttpStatus.OK);
     }
 

@@ -27,7 +27,7 @@ public class ProductsServiceImpl implements ProductsService {
     private Sale_detailRepository sale_detailRepository;
 
     @Override
-    public Optional<ProductsModel> findById(Long id) throws Exception {
+    public Optional<ProductsModel> findById(Long id) throws ResourceNotFoundException {
         this.productsValidations.checkId(id);
 
         Optional<ProductsModel> product = this.productsRepository.findById(id);
@@ -44,13 +44,13 @@ public class ProductsServiceImpl implements ProductsService {
         return product;
     }
     @Override
-    public List<ProductsModel> findAll() throws Exception {
+    public List<ProductsModel> findAll() throws ResourceNotFoundException {
         List<ProductsModel> products = this.productsRepository.findAll();
         this.productsValidations.checkList(products);
         return this.productsRepository.findAll();
     }
     @Override
-    public String create(ProductsModel newProduct) throws Exception {
+    public String create(ProductsModel newProduct) throws ResourceNotFoundException {
         productsValidations.check(newProduct);
         Optional<ProductsModel> productDB = Optional.ofNullable(this.productsRepository.findBySku(newProduct.getSku()));
         if(productDB.isPresent()) {
@@ -64,7 +64,7 @@ public class ProductsServiceImpl implements ProductsService {
         return newProduct.NewProduct();
     }
     @Override
-    public String update(ProductsModel product, Long id) throws Exception {
+    public String update(ProductsModel product, Long id) throws ResourceNotFoundException {
         productsValidations.check(product);
         Optional<ProductsModel> productDB = this.productsRepository.findById(id);
         if(productDB.isPresent()) {
@@ -111,7 +111,7 @@ public class ProductsServiceImpl implements ProductsService {
     }
 
     @Override
-    public String deleteById(Long id) throws Exception {
+    public String deleteById(Long id) throws ResourceNotFoundException,ResourceAlreadyExistsException {
         if(id == null) {
             throw new IllegalArgumentException("ID no ingresado");
         }

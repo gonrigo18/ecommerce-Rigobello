@@ -23,16 +23,14 @@ public class SaleValidations {
             throw new IllegalArgumentException("ID invalido");
         }
     }
-    public void checkList(List<SaleModel> sales) throws Exception {
+    public void checkList(List<SaleModel> sales) throws ResourceNotFoundException {
         if(sales == null || sales.isEmpty())
             throw new ResourceNotFoundException("No hay ventas generadas.");
     }
 
     public void checkDTO(SaleDTO sale) {
-        if(sale == null) {
+        if(sale == null)
             throw new IllegalArgumentException("No hay datos para la venta.");
-        }
-
         if(sale.getDetail() == null || sale.getDetail().size() == 0 || sale.getDetail().isEmpty() || sale.getClientId() < 0)
             throw new IllegalArgumentException("Datos incompletos o erroneos.");
 

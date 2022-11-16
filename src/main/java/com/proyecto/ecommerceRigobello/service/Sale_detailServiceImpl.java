@@ -24,7 +24,7 @@ public class Sale_detailServiceImpl implements Sale_detailService{
     private Sale_detailValidations sale_detailValidations;
 
     @Override
-    public Sale_detailModel findById(Long id) throws Exception {
+    public Sale_detailModel findById(Long id) throws ResourceNotFoundException {
         this.sale_detailValidations.checkId(id);
         Optional<Sale_detailModel> detail = this.sale_detailRepository.findById(id);
         if(detail.isPresent()) {
@@ -36,14 +36,14 @@ public class Sale_detailServiceImpl implements Sale_detailService{
     }
 
     @Override
-    public List<Sale_detailModel> findDetailBySaleId(Long saleId) throws Exception {
+    public List<Sale_detailModel> findDetailBySaleId(Long saleId) throws ResourceNotFoundException {
         List<Sale_detailModel> detail = this.sale_detailRepository.findDetailBySaleId(saleId);
         this.sale_detailValidations.checkList(detail);
         return detail;
     }
 
     @Override
-        public List<Sale_detailModel> findAll() throws Exception {
+        public List<Sale_detailModel> findAll() throws ResourceNotFoundException {
         List<Sale_detailModel> detail= this.sale_detailRepository.findAll();
         this.sale_detailValidations.checkList(detail);
         return detail;

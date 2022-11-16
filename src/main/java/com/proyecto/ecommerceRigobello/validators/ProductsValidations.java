@@ -26,7 +26,7 @@ public class ProductsValidations {
             throw new IllegalArgumentException("No existe un producto con ese SKU.");
         }
     }
-    public void checkList(List<ProductsModel> products) throws Exception {
+    public void checkList(List<ProductsModel> products) throws ResourceNotFoundException {
         if(products == null || products.isEmpty())
             throw new ResourceNotFoundException("No hay productos en la Base.");
     }

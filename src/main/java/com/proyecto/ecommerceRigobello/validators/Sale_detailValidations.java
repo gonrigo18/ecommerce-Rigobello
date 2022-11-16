@@ -14,7 +14,7 @@ public class Sale_detailValidations {
         }
     }
 
-    public void checkList(List<Sale_detailModel> detail) throws Exception {
+    public void checkList(List<Sale_detailModel> detail) throws ResourceNotFoundException {
         if(detail == null || detail.isEmpty()) {
             throw new ResourceNotFoundException("Detalle no existe");
         }

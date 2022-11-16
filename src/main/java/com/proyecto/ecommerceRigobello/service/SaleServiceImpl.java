@@ -29,7 +29,7 @@ public class SaleServiceImpl implements SaleService {
 
 
     @Override
-    public Optional<SaleModel> findById(Long id) throws Exception {
+    public Optional<SaleModel> findById(Long id) throws ResourceNotFoundException {
         saleValidations.checkId(id);
         Optional<SaleModel> sale = this.saleRepository.findById(id);
         if(sale.isPresent()) {
@@ -39,17 +39,17 @@ public class SaleServiceImpl implements SaleService {
         }
     }
     @Override
-    public List<Sale_detailModel> findByDetailId(Long id) throws Exception {
+    public List<Sale_detailModel> findByDetailId(Long id) throws ResourceNotFoundException {
         return sale_detailService.findDetailBySaleId(id);
     }
     @Override
-    public List<SaleModel> findAll() throws Exception {
+    public List<SaleModel> findAll() throws ResourceNotFoundException {
         List<SaleModel> sales = this.saleRepository.findAll();
         this.saleValidations.checkList(sales);
         return sales;
     }
     @Override
-    public List<SaleModel> findByClientId(Long clientId) throws Exception {
+    public List<SaleModel> findByClientId(Long clientId) throws ResourceNotFoundException {
         Optional<ClientsModel> client = clientsService.findById(clientId);
         if(client.isPresent()) {
             return this.saleRepository.findByClientId(clientId);
@@ -60,15 +60,15 @@ public class SaleServiceImpl implements SaleService {
     }
 
     @Override
-    public SaleModel create(SaleDTO newSale) throws Exception {
+    public SaleModel create(SaleDTO newSale) throws ResourceNotFoundException {
         ClientsModel client = this.clientsService.findById(newSale.getClientId()).get();
         saleValidations.checkDTO(newSale);
-        double total = 0.0;
+        Double total = 0.0;
         SaleModel sale = new SaleModel(LocalDate.now(), total, client);
         sale = this.saleRepository.save(sale);
         for (Sale_DetailDTO detail : newSale.getDetail()) {
             ProductsModel product = this.productsService.findById(detail.getProductId()).get();
-            double subtotal = detail.getQuantity() * product.getSale_price();
+            Double subtotal = detail.getQuantity() * product.getSale_price();
             this.productsService.updateStock(product.getId(), detail.getQuantity(), "-");
             Sale_detailModel det = new Sale_detailModel(sale, product, detail.getQuantity(), subtotal);
             this.sale_detailService.create(det);
@@ -79,7 +79,7 @@ public class SaleServiceImpl implements SaleService {
     }
 
     @Override
-    public SaleModel update(SaleModel sale, Long id) throws Exception {
+    public SaleModel update(SaleModel sale, Long id) throws ResourceNotFoundException {
         Optional<SaleModel> saleDB = this.saleRepository.findById(id);
         saleValidations.check(sale);
         if(saleDB.isPresent()) {

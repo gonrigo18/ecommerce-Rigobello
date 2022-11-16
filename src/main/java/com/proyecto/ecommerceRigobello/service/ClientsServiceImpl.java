@@ -27,7 +27,7 @@ public class ClientsServiceImpl implements ClientsService {
     private ClientsValidations clientsValidations;
 
     @Override
-    public Optional<ClientsModel> findById(Long id) throws Exception
+    public Optional<ClientsModel> findById(Long id) throws ResourceNotFoundException
     {
         this.clientsValidations.validateId(id);
 
@@ -46,13 +46,13 @@ public class ClientsServiceImpl implements ClientsService {
         return client;
     }
     @Override
-    public List<ClientsModel> findAll() throws Exception {
+    public List<ClientsModel> findAll() throws ResourceNotFoundException  {
         List<ClientsModel> clients = this.clientsRepository.findAll();
         this.clientsValidations.checkList(clients);
         return clients;
     }
     @Override
-    public String create(ClientsModel newClient) throws Exception {
+    public String create(ClientsModel newClient) throws ResourceAlreadyExistsException {
         ClientsValidations.checkFields(newClient);
         boolean exist = this.clientsRepository.findByDni(newClient.getDni()) != null;
         if(exist) {
@@ -63,7 +63,7 @@ public class ClientsServiceImpl implements ClientsService {
         }
     }
     @Override
-    public String update(ClientsModel client, Long id) throws Exception {
+    public String update(ClientsModel client, Long id) throws ResourceNotFoundException {
         ClientsValidations.checkFields(client);
         Optional<ClientsModel> clientDB = this.clientsRepository.findById(id);
         if(clientDB.isPresent()) {
@@ -79,7 +79,7 @@ public class ClientsServiceImpl implements ClientsService {
             throw new ResourceNotFoundException("El cliente  no existe");
     }
     @Override
-    public String deleteById(Long id) throws Exception {
+    public String deleteById(Long id) throws ResourceNotFoundException, ResourceAlreadyExistsException, IllegalArgumentException {
         if(id == null) {
             throw new IllegalArgumentException("No se ingresó ID.");
         }
