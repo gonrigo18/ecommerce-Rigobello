@@ -19,9 +19,9 @@ public class ProductsModel {
     @Column
     private Integer stock;
     @Column
-    private double buy_price;
+    private Double buy_price;
     @Column
-    private double sale_price;
+    private Double sale_price;
     @Column
     private LocalDate high_Date;
     public String NewProduct() {

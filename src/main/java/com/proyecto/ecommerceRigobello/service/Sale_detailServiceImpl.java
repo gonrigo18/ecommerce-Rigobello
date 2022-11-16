@@ -1,52 +1,56 @@
 package com.proyecto.ecommerceRigobello.service;
 
-import com.proyecto.ecommerceRigobello.builder.ClientsBuilder;
-import com.proyecto.ecommerceRigobello.builder.ProductsBuilder;
-import com.proyecto.ecommerceRigobello.builder.Sale_detailBuilder;
-import com.proyecto.ecommerceRigobello.handle.ApiException;
-import com.proyecto.ecommerceRigobello.model.entities.ClientsModel;
+
+import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import com.proyecto.ecommerceRigobello.model.entities.Sale_detailModel;
-import com.proyecto.ecommerceRigobello.model.request.Sale_detailRequest;
-import com.proyecto.ecommerceRigobello.model.response.ClientsResponse;
-import com.proyecto.ecommerceRigobello.model.response.ProductsResponse;
-import com.proyecto.ecommerceRigobello.model.response.Sale_detailResponse;
 import com.proyecto.ecommerceRigobello.repository.Sale_detailRepository;
-import com.proyecto.ecommerceRigobello.service.abstraction.ProductsService;
 import com.proyecto.ecommerceRigobello.service.abstraction.Sale_detailService;
+import com.proyecto.ecommerceRigobello.validators.Sale_detailValidations;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 @RequiredArgsConstructor
 public class Sale_detailServiceImpl implements Sale_detailService{
 
-   private final Sale_detailRepository sale_detailRepository;
-   private final ProductsService productsService;
+    @Autowired
+    private Sale_detailRepository sale_detailRepository;
+    @Autowired
+    private Sale_detailValidations sale_detailValidations;
 
     @Override
-    public List<Sale_detailResponse> findAll(){
-        List<Sale_detailModel> clientsListEntities = sale_detailRepository.findAll();
-        return Sale_detailBuilder.entityToResponseList(clientsListEntities);
+    public Sale_detailModel findById(Long id) throws Exception {
+        this.sale_detailValidations.checkId(id);
+        Optional<Sale_detailModel> detail = this.sale_detailRepository.findById(id);
+        if(detail.isPresent()) {
+            return detail.get();
+        }
+        else {
+            throw new ResourceNotFoundException("No hay detalle");
+        }
     }
-     public Sale_detailResponse addToCart(Sale_detailRequest dp) throws ApiException {
-        try {
-            ProductsResponse p = productsService.findByProductAndQuantity(dp.getProductDetail(), dp.getQuantity());
-            productsService.discountStock(dp.getProductDetail(), dp.getQuantity());
-            Sale_detailModel dpEntity = new Sale_detailModel();
-            dpEntity.setQuantity(dp.getQuantity());
-            dpEntity.setPrice(p.getSale_price());
-            dpEntity.setPrice(p.getSale_price().multiply(BigDecimal.valueOf(dp.getQuantity())));
-            dpEntity.setProductDetail(ProductsBuilder.responseToEntity(p));
-            sale_detailRepository.save(dpEntity);
-            return Sale_detailBuilder.entityToResponse(dpEntity);
-        }
-        catch (Exception e){
-            throw new ApiException(e.getMessage());
-        }
 
+    @Override
+    public List<Sale_detailModel> getSale_detail(Long saleId) throws Exception {
+        List<Sale_detailModel> detail = this.sale_detailRepository.findById(saleId);
+        this.sale_detailValidations.checkList(detail);
+        return detail;
+    }
+
+    @Override
+    public List<Sale_detailModel> findAll() throws Exception {
+        List<Sale_detailModel> detail= this.sale_detailRepository.findAll();
+        this.sale_detailValidations.checkList(detail);
+        return detail;
+    }
+    @Override
+    public Sale_detailModel create(Sale_detailModel detail) {
+        this.sale_detailValidations.check(detail);
+        return this.sale_detailRepository.save(detail);
     }
 
 }

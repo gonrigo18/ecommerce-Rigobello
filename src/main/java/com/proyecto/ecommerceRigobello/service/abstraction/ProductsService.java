@@ -1,20 +1,17 @@
 package com.proyecto.ecommerceRigobello.service.abstraction;
 
 
-import com.proyecto.ecommerceRigobello.handle.ApiException;
 import com.proyecto.ecommerceRigobello.model.entities.ProductsModel;
-import com.proyecto.ecommerceRigobello.model.request.ProductsRequest;
-import com.proyecto.ecommerceRigobello.model.response.ProductsResponse;
-
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductsService {
 
-    ProductsResponse findBySku(Long id) throws ApiException;
-    ProductsResponse findByProductAndQuantity(Long id, int quantity) throws ApiException;
-    List<ProductsResponse> findAll();
-    ProductsResponse create(ProductsRequest product) throws ApiException;
-    ProductsResponse update(ProductsRequest product) throws ApiException;
-    void deleteById(Long id)throws ApiException;
-    void discountStock (Long id, int quantity) throws ApiException;
+    public Optional<ProductsModel> findById(Long id) throws Exception;
+    public ProductsModel findBySku(String sku);
+    public List<ProductsModel> findAll() throws Exception;
+    public String create(ProductsModel newProduct) throws Exception;
+    public String update(ProductsModel product, Long id) throws Exception;
+    public String updateStock(Long id, int stock, String cont) throws Exception;
+    public String deleteById(Long id) throws Exception;
 }

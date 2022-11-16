@@ -1,36 +1,35 @@
 package com.proyecto.ecommerceRigobello.controller;
 
-import com.proyecto.ecommerceRigobello.handle.ApiException;
-import com.proyecto.ecommerceRigobello.model.request.Sale_detailRequest;
-import com.proyecto.ecommerceRigobello.model.response.Sale_detailResponse;
-import com.proyecto.ecommerceRigobello.repository.Sale_detailRepository;
-import com.proyecto.ecommerceRigobello.service.abstraction.Sale_detailService;
-import lombok.RequiredArgsConstructor;
+import com.proyecto.ecommerceRigobello.model.entities.Sale_detailModel;
+import com.proyecto.ecommerceRigobello.service.Sale_detailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping(path = "api/details")
 @RestController
-@RequiredArgsConstructor
+@RequestMapping(path = "api/details")
 public class Sale_detailController {
 
     @Autowired
-    private Sale_detailRepository sale_detailRepository;
-    private final Sale_detailService sale_detailService;
+    private Sale_detailServiceImpl sale_detailService;
 
-
-    @PostMapping ("/")
-    public ResponseEntity<Sale_detailResponse> addToCart(@RequestBody Sale_detailRequest dp) throws ApiException {
-        return ResponseEntity.ok(sale_detailService.addToCart(dp));
+    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<?> findById(@PathVariable(name = "id") Long id) throws Exception {
+        return new ResponseEntity<>(sale_detailService.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<Sale_detailResponse>> findAll(){
-        return ResponseEntity.ok(sale_detailService.findAll());
+    @GetMapping(value = "/getSale_detail/{saleId}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<List<Sale_detailModel>> getSale_detail(@PathVariable(name = "saleId") Long saleId) throws Exception {
+        return new ResponseEntity<>(sale_detailService.getSale_detail(saleId), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/")
+    public ResponseEntity<List<Sale_detailModel>> findAll() throws Exception {
+        return new ResponseEntity<>(sale_detailService.findAll(), HttpStatus.OK);
+    }
 
 }

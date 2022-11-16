@@ -28,8 +28,8 @@ public class Sale_detailModel {
     @Column
     private double total;
 
-    public Sale_detailModel(long id, ProductsModel productId, int quantity, double total) {
-        this.id = id;
+    public Sale_detailModel(SaleModel saleId, ProductsModel productId, int quantity, double total) {
+        this.saleId = saleId;
         this.productId = productId;
         this.quantity = quantity;
         this.total = total;

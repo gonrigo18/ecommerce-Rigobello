@@ -1,4 +1,4 @@
-package com.proyecto.ecommerceRigobello.handle;
+package com.proyecto.ecommerceRigobello.controllerExceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,15 +15,15 @@ public class ErrorHandle {
     @ResponseBody
     @ExceptionHandler(ApiException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    ErrorMsj errorMessage(ApiException ex) {
-        return new ErrorMsj(ex.getMessage());
+    ErrorMessage errorMessage(ApiException ex) {
+        return new ErrorMessage(ex.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    ErrorMsj genericErrorMessage(Exception ex) {
-        return new ErrorMsj(ex.getMessage());
+    ErrorMessage genericErrorMessage(Exception ex) {
+        return new ErrorMessage(ex.getMessage());
     }
 
     @ResponseBody

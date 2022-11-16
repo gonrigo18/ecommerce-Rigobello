@@ -1,112 +1,132 @@
 package com.proyecto.ecommerceRigobello.service;
 
-import com.proyecto.ecommerceRigobello.builder.ProductsBuilder;
-import com.proyecto.ecommerceRigobello.handle.ApiException;
+import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceAlreadyExistsException;
+import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import com.proyecto.ecommerceRigobello.model.entities.ProductsModel;
-import com.proyecto.ecommerceRigobello.model.request.ProductsRequest;
-import com.proyecto.ecommerceRigobello.model.response.ProductsResponse;
+import com.proyecto.ecommerceRigobello.model.entities.Sale_detailModel;
 import com.proyecto.ecommerceRigobello.repository.ProductsRepository;
+import com.proyecto.ecommerceRigobello.repository.Sale_detailRepository;
 import com.proyecto.ecommerceRigobello.service.abstraction.ProductsService;
+import com.proyecto.ecommerceRigobello.validators.ProductsValidations;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+
 
 @Service
-@RequiredArgsConstructor
 public class ProductsServiceImpl implements ProductsService {
 
-    private final ProductsRepository productsRepository;
-    @Override
-    public ProductsResponse create(ProductsRequest product) throws ApiException {
-        try{
-            ProductsModel p = productsRepository.getProductByCode(product.getSku());
-            if (p == null){
-                ProductsModel saveProduct= ProductsBuilder.requestToEntity(product);
-                ProductsModel entity = productsRepository.save(saveProduct);
-                return ProductsBuilder.entityToResponse(entity);
-            }
-            else{
-                throw new ApiException("Producto Existente");
-            }
-        }
-        catch (Exception e) {
-            throw new ApiException(e.getMessage());
-        }
-    }
+    @Autowired
+    private ProductsRepository productsRepository;
+    @Autowired
+    private ProductsValidations productsValidations;
+    @Autowired
+    private Sale_detailRepository sale_detailRepository;
 
     @Override
-    public List<ProductsResponse> findAll() {
-        List<ProductsModel> productListEntity = productsRepository.findAll();
-        return ProductsBuilder.entityToResponseList(productListEntity);
-    }
+    public Optional<ProductsModel> findById(Long id) throws Exception {
+        this.productsValidations.checkId(id);
 
+        Optional<ProductsModel> product = this.productsRepository.findById(id);
+        if(product.isPresent()) {
+            return product;
+        }else {
+            throw new ResourceNotFoundException("No existe el producto");
+        }
+    }
     @Override
-    public ProductsResponse findBySku(Long id)throws ApiException {
-        try {
-            ProductsModel p = productsRepository.getProductByCode(id);
-            if (p==null){
-                throw new ApiException("Elemento no encontrado");
-            }
-            else{
-                return ProductsBuilder.entityToResponse(p);
-            }
-        }
-        catch (Exception e) {
-            throw new ApiException(e.getMessage());
-        }
+    public ProductsModel findBySku(String sku) {
+        ProductsModel product = this.productsRepository.findBySku(sku);
+        this.productsValidations.checkSku(product);
+        return product;
     }
-
-    public ProductsResponse findByProductAndQuantity(Long id, int quantity) throws ApiException{
-        try {
-            ProductsModel p = productsRepository.getProductAndQuantity(id,quantity);
-            if (p==null){
-                throw new ApiException("Elemento no existente o cantidad insuficiente del producto: " + id);
-            }
-            else{
-                return ProductsBuilder.entityToResponse(p);
-            }
-        }
-        catch (Exception e) {
-            throw new ApiException(e.getMessage());
-        }
+    @Override
+    public List<ProductsModel> findAll() throws Exception {
+        List<ProductsModel> products = this.productsRepository.findAll();
+        this.productsValidations.checkList(products);
+        return this.productsRepository.findAll();
     }
-    public ProductsResponse update(ProductsRequest product) throws ApiException {
+    @Override
+    public String create(ProductsModel newProduct) throws Exception {
+        productsValidations.check(newProduct);
 
-        try {
-            ProductsResponse wanted = findBySku(product.getSku());
-            productsRepository.delete(ProductsBuilder.responseToEntity(wanted));
-            ProductsModel updated = productsRepository.save(ProductsBuilder.requestToEntity(product));
-            return ProductsBuilder.entityToResponse(updated);
+        Optional<ProductsModel> productDB = Optional.ofNullable(this.productsRepository.findBySku(newProduct.getSku()));
+        if(productDB.isPresent()) {
+            newProduct.setStock(newProduct.getStock() + productDB.get().getStock());
+            newProduct.setHigh_Date(LocalDate.now());
+            ProductsModel prod = productDB.get();
+            prod.setStock(0);
+            update(prod, prod.getId());
         }
-        catch (Exception e){
-            throw new ApiException(e.getMessage());
-        }
+        productsRepository.save(newProduct);
+        return newProduct.NewProduct();
     }
-
-    public void deleteById(Long id)throws ApiException{
-        try {
-            ProductsResponse delete = findBySku(id);
-            productsRepository.deleteProd(delete.getSku());
+    @Override
+    public String update(ProductsModel product, Long id) throws Exception {
+        productsValidations.check(product);
+        Optional<ProductsModel> productDB = this.productsRepository.findById(id);
+        if(productDB.isPresent()) {
+            ProductsModel prod = productDB.get();
+            prod.setSku(product.getSku());
+            prod.setDescription(product.getDescription());
+            prod.setStock(product.getStock());
+            prod.setBuy_price(product.getBuy_price());
+            prod.setSale_price(product.getSale_price());
+            prod.setHigh_Date(product.getHigh_Date());
+            this.productsRepository.save(prod);
+            return prod.updatedProduct();
         }
-        catch (Exception e) {
-            throw new ApiException(e.getMessage());
+        else {
+            throw new ResourceNotFoundException("El producto que desea actualizar no se encuentra");
         }
-
     }
 
     @Override
-    public void discountStock (Long id, int quantity) throws ApiException{
-        try {
-            ProductsResponse wanted = findByProductAndQuantity(id,quantity);
-            wanted.setStock(wanted.getStock()-quantity);
-            productsRepository.delete(ProductsBuilder.responseToEntity(wanted));
-            productsRepository.save(ProductsBuilder.responseToEntity(wanted));
+    public String updateStock(Long id, int stock, String cont) throws Exception {
+        Optional<ProductsModel> product = this.productsRepository.findById(id);
+        if(product.isEmpty()) {
+            throw new ResourceNotFoundException("No se encontró el producto");
         }
-        catch (Exception e){
-            throw new ApiException(e.getMessage());
+        if(stock <= 0) {
+            throw new IllegalArgumentException("Valor invalido, debe ser mayor a 0");
         }
+        if(cont.equals("+")) {
+            product.get().setStock((product.get().getStock() + stock));
+        }
+        else if(cont.equals("-")) {
+            if(product.get().getStock() - stock < 0) {
+                throw new IllegalArgumentException("Stock insuficiente" + product.get().getId() +". Stock actual: " + product.get().getStock());
+            }
+            else {
+                product.get().setStock(product.get().getStock() - stock);
+            }
+        }
+        else {
+            throw new IllegalArgumentException("Debe ingresar: \"+\" o \"-\".");
+        }
+        this.productsRepository.save(product.get());
+        return product.get().updatedProduct();
     }
 
+    @Override
+    public String deleteById(Long id) throws Exception {
+        if(id == null) {
+            throw new IllegalArgumentException("ID no ingresado");
+        }
+        Optional<ProductsModel> product = this.productsRepository.findById(id);
+        if(product.isEmpty()) {
+            throw new ResourceNotFoundException("No se encontró el producto.");
+        }
+        List<Sale_detailModel> byProductId = sale_detailRepository.findByProductId(id);
+        if(byProductId.size() != 0) {
+            throw new ResourceAlreadyExistsException("El producto no puede eliminarse");
+        }
+        this.productsRepository.deleteById(id);
+        return "ok";
+    }
 
 }
