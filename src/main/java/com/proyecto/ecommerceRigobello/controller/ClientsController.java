@@ -2,6 +2,7 @@ package com.proyecto.ecommerceRigobello.controller;
 
 import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import com.proyecto.ecommerceRigobello.model.entities.ClientsModel;
+import com.proyecto.ecommerceRigobello.service.ClientsServiceImpl;
 import com.proyecto.ecommerceRigobello.service.abstraction.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import java.util.List;
 public class ClientsController {
 
     @Autowired
-    private ClientsService clientsService;
+    private ClientsServiceImpl clientsService;
 
     @GetMapping( value= "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> findById(@PathVariable(name = "id") Long id) throws ResourceNotFoundException {

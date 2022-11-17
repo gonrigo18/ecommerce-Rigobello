@@ -49,16 +49,17 @@ public class ProductsServiceImpl implements ProductsService {
         return this.productsRepository.findAll();
     }
     @Override
-    public String create(ProductsModel newProduct) throws ResourceNotFoundException {
+    public String create(ProductsModel newProduct) throws ResourceNotFoundException, ResourceAlreadyExistsException {
         productsValidations.check(newProduct);
         Optional<ProductsModel> productDB = Optional.ofNullable(this.productsRepository.findBySku(newProduct.getSku()));
         if(productDB.isPresent()) {
-            newProduct.setStock(newProduct.getStock() + productDB.get().getStock());
-            newProduct.setHigh_date(LocalDate.now());
-            ProductsModel prod = productDB.get();
-            prod.setStock(0);
-            update(prod, prod.getId());
+            throw new ResourceAlreadyExistsException("El producto ya existe, agregue stock con el metodo update");
         }
+        newProduct.setStock(newProduct.getStock() + productDB.get().getStock());
+        newProduct.setHigh_date(LocalDate.now());
+        ProductsModel prod = productDB.get();
+        prod.setStock(0);
+        update(prod, prod.getId());
         productsRepository.save(newProduct);
         return newProduct.NewProduct();
     }

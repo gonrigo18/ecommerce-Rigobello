@@ -8,10 +8,9 @@ import java.time.LocalDate;
 @Data
 @Table(name = "products")
 public class ProductsModel {
-
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Id
     @Column
     private String sku;
     @Column

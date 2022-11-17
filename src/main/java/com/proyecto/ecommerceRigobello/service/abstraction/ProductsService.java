@@ -12,7 +12,7 @@ public interface ProductsService {
     public Optional<ProductsModel> findById(Long id) throws ResourceNotFoundException;
     public ProductsModel findBySku(String sku);
     public List<ProductsModel> findAll() throws ResourceNotFoundException;
-    public String create(ProductsModel newProduct) throws ResourceNotFoundException;
+    public String create(ProductsModel newProduct) throws ResourceNotFoundException, ResourceAlreadyExistsException;
     public String update(ProductsModel product, Long id) throws ResourceNotFoundException;
     public String updateStock(Long id, int stock, String cont) throws ResourceNotFoundException;
     public String deleteById(Long id) throws ResourceNotFoundException, ResourceAlreadyExistsException;
