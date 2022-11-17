@@ -26,13 +26,13 @@ public class Sale_detailModel {
     private int quantity;
 
     @Column
-    private double total;
+    private double subtotal;
 
-    public Sale_detailModel(SaleModel saleId, ProductsModel productId, int quantity, double total) {
+    public Sale_detailModel(SaleModel saleId, ProductsModel productId, int quantity, double subtotal) {
         this.saleId = saleId;
         this.productId = productId;
         this.quantity = quantity;
-        this.total = total;
+        this.subtotal = subtotal;
     }
 }
 

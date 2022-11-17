@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface ProductsService {
 
     public Optional<ProductsModel> findById(Long id) throws ResourceNotFoundException;
-    public ProductsModel findBySku(String sku)throws Exception;
+    public ProductsModel findBySku(String sku);
     public List<ProductsModel> findAll() throws ResourceNotFoundException;
     public String create(ProductsModel newProduct) throws ResourceNotFoundException;
     public String update(ProductsModel product, Long id) throws ResourceNotFoundException;

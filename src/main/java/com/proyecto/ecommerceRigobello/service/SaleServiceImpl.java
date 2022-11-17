@@ -55,20 +55,20 @@ public class SaleServiceImpl implements SaleService {
             return this.saleRepository.findByClientId(clientId);
         }
         else {
-            throw new ResourceNotFoundException ("No se encontró el cliente en la Base de Datos.");
+            throw new ResourceNotFoundException ("No se encontró el cliente");
         }
     }
 
     @Override
     public SaleModel create(SaleDTO newSale) throws ResourceNotFoundException {
-        ClientsModel client = this.clientsService.findById(newSale.getClientId()).get();
+        ClientsModel client = this.clientsService.findById(newSale.getClientId()).orElseThrow(() -> new ResourceNotFoundException("El cliente no existe"));
         saleValidations.checkDTO(newSale);
-        Double total = 0.0;
+        double total = 0.0;
         SaleModel sale = new SaleModel(LocalDate.now(), total, client);
         sale = this.saleRepository.save(sale);
         for (Sale_DetailDTO detail : newSale.getDetail()) {
-            ProductsModel product = this.productsService.findById(detail.getProductId()).get();
-            Double subtotal = detail.getQuantity() * product.getSale_price();
+            ProductsModel product = this.productsService.findById(detail.getProductId()).orElseThrow(() -> new ResourceNotFoundException("El product no existe"));
+            double subtotal = detail.getQuantity() * product.getSale_price();
             this.productsService.updateStock(product.getId(), detail.getQuantity(), "-");
             Sale_detailModel det = new Sale_detailModel(sale, product, detail.getQuantity(), subtotal);
             this.sale_detailService.create(det);

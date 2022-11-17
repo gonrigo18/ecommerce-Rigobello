@@ -11,18 +11,18 @@ create table clients (
 
 create table products (
 `id` int primary key auto_increment,
-`sku` varchar(100) unique not null,
-`description` varchar(200) not null,
-`buy_price` double not null,
-`sale_price` double not null,
-`stock` int not null,
-`high_date` date not null
+`sku` varchar(100),
+`description` varchar(200),
+`buy_price` double,
+`sale_price` double,
+`stock` int,
+`high_date` date
 );
 
 create table sale (
 `id` int primary key auto_increment,
 `high_date` date not null,
-`total` double not null,
+`total` double,
 `id_client` int not null,
 constraint `fk_id_client` foreign key (`id_client`) references `clients` (`id`)
 );
@@ -36,7 +36,6 @@ create table sale_detail(
 constraint `fk_id_sale` foreign key (`id_sale`) references `sale` (`id`),
 constraint `fk_id_product` foreign key (`id_product`) references `products` (`id`)
 );
-
 
 select * from clients;
 select * from sale;

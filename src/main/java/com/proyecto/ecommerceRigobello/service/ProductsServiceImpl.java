@@ -29,8 +29,7 @@ public class ProductsServiceImpl implements ProductsService {
     @Override
     public Optional<ProductsModel> findById(Long id) throws ResourceNotFoundException {
         this.productsValidations.checkId(id);
-
-        Optional<ProductsModel> product = this.productsRepository.findById(id);
+        Optional<ProductsModel> product = this.productsRepository.findById(id);;
         if(product.isPresent()) {
             return product;
         }else {

@@ -27,10 +27,8 @@ public class ClientsServiceImpl implements ClientsService {
     private ClientsValidations clientsValidations;
 
     @Override
-    public Optional<ClientsModel> findById(Long id) throws ResourceNotFoundException
-    {
+    public Optional<ClientsModel> findById(Long id) throws ResourceNotFoundException {
         this.clientsValidations.validateId(id);
-
         Optional<ClientsModel> client = this.clientsRepository.findById(id);
         if(client.isPresent()) {
             return client;

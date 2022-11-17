@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 
 public interface ClientsRepository extends JpaRepository <ClientsModel, Long> {
-    @Query(value = "Select * from Clients where dni = ?1", nativeQuery = true)
+    @Query(value = "Select * from clients where dni = ?1", nativeQuery = true)
 
     public ClientsModel findByDni(String dni);
 }

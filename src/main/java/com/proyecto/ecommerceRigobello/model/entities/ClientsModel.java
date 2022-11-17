@@ -32,7 +32,7 @@ public class ClientsModel {
     }
 
     public String UpdatedClient() {
-        return String.format("Cliente de ID %d actualizado:%nDNI: %s | Nombre y apellido: %s %s | Fecha Nacimiento: %s.%n",
+        return String.format("Cliente actualizado:%nID: %d | DNI: %s | Nombre y apellido: %s %s | Fecha Nacimiento: %s.%n",
                 this.id, this.dni, this.name, this.lastname, this.birth_date);
     }
 

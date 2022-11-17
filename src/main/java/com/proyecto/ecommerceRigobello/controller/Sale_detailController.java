@@ -1,5 +1,6 @@
 package com.proyecto.ecommerceRigobello.controller;
 
+import com.proyecto.ecommerceRigobello.controllerExceptions.ResourceNotFoundException;
 import com.proyecto.ecommerceRigobello.model.entities.Sale_detailModel;
 import com.proyecto.ecommerceRigobello.service.Sale_detailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class Sale_detailController {
         return new ResponseEntity<>(sale_detailService.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping(value="/findBySaleId/{saleId}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<List<Sale_detailModel>> findDetailBySaleId(@PathVariable(name = "saleId") Long saleId) throws Exception {
+    @GetMapping(value="/findDetailBySaleId/{saleId}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<List<Sale_detailModel>> findDetailBySaleId(@PathVariable(name = "saleId") Long saleId) throws ResourceNotFoundException {
         return new ResponseEntity<>(sale_detailService.findDetailBySaleId(saleId), HttpStatus.OK);
     }
 
